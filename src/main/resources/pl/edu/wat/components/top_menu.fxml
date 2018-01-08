@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <menus>
+        <Menu text="File">
+            <items>
+                <MenuItem text="Close" />
+            </items>
+        </Menu>
+        <Menu text="Edit">
+            <items>
+                <MenuItem text="Delete" />
+            </items>
+        </Menu>
+        <Menu text="Help">
+            <items>
+                <MenuItem text="About" />
+            </items>
+        </Menu>
+    </menus>
+</MenuBar>
