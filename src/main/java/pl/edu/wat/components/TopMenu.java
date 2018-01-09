@@ -3,7 +3,7 @@ package pl.edu.wat.components;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import pl.edu.wat.ApplicationSettingsReader;
-import pl.edu.wat.MenuController;
+import pl.edu.wat.controllers.MenuController;
 
 import java.io.IOException;
 import java.util.Locale;
