@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <?import pl.edu.wat.components.TopMenu?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.wat.controllers.MainSceneController">
    <children>
        <TopMenu AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
-       <ListView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
-
-       </ListView>
+       <TableView fx:id="roomsList" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+         <columns>
+            <TableColumn text="%rooms.table.col1" fx:id="numberColumn"/>
+            <TableColumn text="%rooms.table.col2" fx:id="numberOfPersonsColumn"/>
+            <TableColumn text="%rooms.table.col3" fx:id="numberOfBedsColumn"/>
+         </columns>
+       </TableView>
    </children>
 </AnchorPane>

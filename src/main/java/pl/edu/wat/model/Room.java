@@ -21,6 +21,10 @@ public class Room {
 
     private String number;
 
+    private Integer numberOfPersons;
+
+    private Integer numberOfBeds;
+
     @OneToMany(mappedBy = "room")
     private List<Reservation> reservations;
 }
