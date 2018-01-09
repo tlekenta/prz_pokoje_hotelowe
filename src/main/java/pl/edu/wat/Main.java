@@ -10,11 +10,12 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main extends Application {
+    private ApplicationSettingsReader asr = new ApplicationSettingsReader();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader();
-        Locale locale = new Locale("pl", "PL");
+        Locale locale = asr.getLanguage();
         loader.setResources(ResourceBundle.getBundle("i18n.lang", locale));
         Parent root = loader.load(getClass().getResource("sample.fxml").openStream());
 
@@ -22,9 +23,10 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
-        primaryStage.setOnCloseRequest(event ->
-            EntityManagerFactory.close()
-        );
+        primaryStage.setOnCloseRequest(event -> {
+            EntityManagerFactory.close();
+            ApplicationSettingsReader.saveSettings();
+        });
     }
 
 
