@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.wat.MenuController">
     <menus>
-        <Menu text="File">
+        <Menu text="%menu.file">
             <items>
-                <MenuItem text="Close" />
+                <MenuItem text="%menu.file.close" />
             </items>
         </Menu>
         <Menu text="Edit">
@@ -16,9 +16,10 @@
                 <MenuItem text="Delete" />
             </items>
         </Menu>
-        <Menu text="Help">
+        <Menu text="%menu.lang">
             <items>
-                <MenuItem text="About" />
+                <MenuItem text="English"/>
+                <MenuItem text="Polski" />
             </items>
         </Menu>
     </menus>
