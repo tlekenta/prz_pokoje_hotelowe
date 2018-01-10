@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.wat.controllers.MenuController">
-    <menus>
-        <Menu text="%menu.file">
-            <items>
-                <MenuItem text="%menu.file.close" />
-            </items>
-        </Menu>
-        <Menu text="Edit">
-            <items>
-                <MenuItem text="Delete" />
-            </items>
-        </Menu>
-        <Menu text="%menu.lang">
-            <items>
-                <MenuItem text="English"/>
-                <MenuItem text="Polski" />
-            </items>
-        </Menu>
-    </menus>
+<MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121" fx:controller="pl.edu.wat.controllers.MenuController">
+    <Menu text="%menu.file">
+        <MenuItem text="%menu.file.close" />
+    </Menu>
+    <Menu text="Edit">
+        <MenuItem text="Delete" />
+    </Menu>
+    <Menu text="%menu.settings">
+         <Menu mnemonicParsing="false" text="%menu.theme">
+             <MenuItem mnemonicParsing="false" text="MODENA" />
+             <MenuItem mnemonicParsing="false" text="CASPIAN" />
+         </Menu>
+         <Menu mnemonicParsing="false" text="%menu.lang">
+             <MenuItem text="Polski" />
+             <MenuItem text="English" />
+         </Menu>
+    </Menu>
 </MenuBar>
