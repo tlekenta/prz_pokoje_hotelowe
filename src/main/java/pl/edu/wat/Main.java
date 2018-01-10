@@ -18,7 +18,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         Locale locale = asr.getLanguage();
         loader.setResources(ResourceBundle.getBundle("i18n.lang", locale));
-        Parent root = loader.load(getClass().getResource("main_scene.fxml").openStream());
+        Parent root = loader.load(getClass().getResource("rooms_view.fxml").openStream());
 
         primaryStage.setTitle("Pokoje hotelowe v1");
         primaryStage.setScene(new Scene(root));

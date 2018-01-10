@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
-public class MainSceneController implements Initializable {
+public class RoomsViewController implements Initializable {
     @FXML TableView<Room> roomsList;
     @FXML TableColumn numberColumn;
     @FXML TableColumn numberOfPersonsColumn;
