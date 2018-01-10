@@ -11,14 +11,14 @@ import java.util.ResourceBundle;
 
 public class TopMenu extends AnchorPane {
 
-    private MenuController controller;
-    ApplicationSettingsReader asr = new ApplicationSettingsReader();
+    private ApplicationSettingsReader asr = new ApplicationSettingsReader();
 
     public TopMenu() throws IOException {
+        //TODO zaimplementować Initializable??
         FXMLLoader loader = new FXMLLoader();
         Locale locale = asr.getLanguage();
         loader.setResources(ResourceBundle.getBundle("i18n.lang", locale));
-        loader.setControllerFactory(param -> controller = new MenuController());
+        //loader.setControllerFactory(param -> new MenuController()); //TODO co to robi????
         getChildren().add(loader.load(getClass().getResource("top_menu.fxml").openStream()));
     }
 }

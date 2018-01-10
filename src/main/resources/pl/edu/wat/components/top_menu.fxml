@@ -5,7 +5,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.121" fx:controller="pl.edu.wat.controllers.MenuController">
+<MenuBar fx:id="topMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.wat.controllers.MenuController">
     <Menu text="%menu.file">
         <MenuItem text="%menu.file.close" />
     </Menu>
@@ -14,12 +14,12 @@
     </Menu>
     <Menu text="%menu.settings">
          <Menu mnemonicParsing="false" text="%menu.theme">
-             <MenuItem mnemonicParsing="false" text="MODENA" />
-             <MenuItem mnemonicParsing="false" text="CASPIAN" />
+             <MenuItem mnemonicParsing="false" onAction="#changeTheme" text="MODENA" />
+             <MenuItem mnemonicParsing="false" onAction="#changeTheme" text="CASPIAN" />
          </Menu>
          <Menu mnemonicParsing="false" text="%menu.lang">
-             <MenuItem text="Polski" />
-             <MenuItem text="English" />
+             <MenuItem onAction="#changeLanguage" text="Polski" />
+             <MenuItem onAction="#changeLanguage" text="English" />
          </Menu>
     </Menu>
 </MenuBar>
