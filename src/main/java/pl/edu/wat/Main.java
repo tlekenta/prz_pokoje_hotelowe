@@ -20,7 +20,7 @@ public class Main extends Application {
         loader.setResources(ResourceBundle.getBundle("i18n.lang", locale));
         Parent root = loader.load(getClass().getResource("rooms_view.fxml").openStream());
 
-        primaryStage.setTitle("Pokoje hotelowe v1");
+        primaryStage.setTitle(ResourceBundle.getBundle("i18n.lang", locale).getString("title"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
