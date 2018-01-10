@@ -1,5 +1,6 @@
 package pl.edu.wat.controllers;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import pl.edu.wat.model.Room;
 import pl.edu.wat.services.RoomService;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 public class MainSceneController implements Initializable {
@@ -19,6 +21,7 @@ public class MainSceneController implements Initializable {
     @FXML TableColumn numberOfBedsColumn;
 
     private RoomService roomService = RoomService.getInstance();
+    private ObservableList<Room> rooms = FXCollections.observableList(new LinkedList<>());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -31,8 +34,11 @@ public class MainSceneController implements Initializable {
         numberOfBedsColumn.setCellValueFactory(
                 new PropertyValueFactory<Room, String>("numberOfBeds")
         );
-        
-        roomsList.setItems(roomService.getRoomsList());
+
+        rooms = roomService.getRoomsList();
+        rooms.addListener(roomService);
+
+        roomsList.setItems(rooms);
     }
 
 

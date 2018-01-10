@@ -1,13 +1,14 @@
 package pl.edu.wat.services;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import pl.edu.wat.model.Room;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class RoomService {
+public class RoomService implements ListChangeListener<Room>{
     private static RoomService instance;
 
     private RoomService(){
@@ -48,5 +49,10 @@ public class RoomService {
         rooms.add(room);
 
         return FXCollections.observableList(rooms);
+    }
+
+    @Override
+    public void onChanged(Change<? extends Room> c) {
+        System.out.println("Zmiana");
     }
 }
