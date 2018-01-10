@@ -1,1 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><setup key="language" value="pl"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<root>
+    <setup key="language" value="pl"/>
+    <setup key="theme" value="MODENA"/>
+</root>

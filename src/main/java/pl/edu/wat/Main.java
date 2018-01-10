@@ -14,6 +14,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        setUserAgentStylesheet(asr.getTheme());
         FXMLLoader loader = new FXMLLoader();
         Locale locale = asr.getLanguage();
         loader.setResources(ResourceBundle.getBundle("i18n.lang", locale));

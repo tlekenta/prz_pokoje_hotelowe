@@ -38,6 +38,14 @@ public class ApplicationSettingsReader {
         }
     }
 
+    public String getTheme(){
+        return settingsList.get("theme");
+    }
+
+    public void setTheme(String newTheme){
+        settingsList.put("theme", newTheme);
+    }
+
     public Locale getLanguage(){
         String language = settingsList.get("language");
 
@@ -75,6 +83,7 @@ public class ApplicationSettingsReader {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document document = dBuilder.newDocument();
+        Element root = document.createElement("root");
         Element e;
 
 
@@ -83,8 +92,10 @@ public class ApplicationSettingsReader {
             e.setAttribute("key", entry.getKey());
             e.setAttribute("value", entry.getValue());
 
-            document.appendChild(e);
+            root.appendChild(e);
         }
+
+        document.appendChild(root);
 
         return document;
     }
