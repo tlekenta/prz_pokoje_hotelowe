@@ -1,9 +1,9 @@
-package pl.edu.wat.services;
+package pl.edu.wat.model.services;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import pl.edu.wat.model.Room;
+import pl.edu.wat.model.entities.Room;
 
 import java.util.LinkedList;
 import java.util.List;

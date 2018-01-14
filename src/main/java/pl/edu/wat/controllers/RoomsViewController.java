@@ -7,8 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import pl.edu.wat.model.Room;
-import pl.edu.wat.services.RoomService;
+import pl.edu.wat.model.entities.Room;
+import pl.edu.wat.model.services.RoomService;
 
 import java.net.URL;
 import java.util.LinkedList;

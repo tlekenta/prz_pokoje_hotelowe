@@ -1,4 +1,4 @@
-package pl.edu.wat.model;
+package pl.edu.wat.model.entities;
 
 import lombok.Data;
 

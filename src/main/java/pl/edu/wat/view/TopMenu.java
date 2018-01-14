@@ -1,9 +1,8 @@
-package pl.edu.wat.components;
+package pl.edu.wat.view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import pl.edu.wat.ApplicationSettingsReader;
-import pl.edu.wat.controllers.MenuController;
 
 import java.io.IOException;
 import java.util.Locale;
