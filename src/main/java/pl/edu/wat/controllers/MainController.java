@@ -3,11 +3,14 @@ package pl.edu.wat.controllers;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -17,13 +20,20 @@ import pl.edu.wat.Main;
 import pl.edu.wat.view.ReservationsView;
 import pl.edu.wat.view.RoomsView;
 
+import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
 
     @FXML
     MenuBar topMenu;
+
+    @FXML
+    MenuItem menuItemRooms;
+
+    @FXML
+    MenuItem menuItemReservations;
 
     @FXML
     RoomsView roomsView;
@@ -31,16 +41,29 @@ public class MainController {
     @FXML
     ReservationsView reservationsView;
 
+    ImageView checkedIcon;
+
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Image image = new Image(getClass().getResourceAsStream("../view/icons/checked.png"));
+        checkedIcon = new ImageView(image);
+        menuItemRooms.setGraphic(checkedIcon);
+    }
 
     public void showRooms() {
         hideAll();
         roomsView.setVisible(true);
+        menuItemRooms.setGraphic(checkedIcon);
+        menuItemReservations.setGraphic(null);
     }
 
     public void showReservations() {
         hideAll();
         reservationsView.setVisible(true);
+        menuItemReservations.setGraphic(checkedIcon);
+        menuItemRooms.setGraphic(null);
     }
 
     private void hideAll() {

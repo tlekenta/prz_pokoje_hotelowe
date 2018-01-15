@@ -13,8 +13,8 @@
             <MenuItem text="%menu.file.close" />
         </Menu>
         <Menu text="%menu.view">
-            <MenuItem onAction="#showRooms" text="%menu.view.rooms" />
-            <MenuItem onAction="#showReservations" text="%menu.view.reservations" />
+            <MenuItem onAction="#showRooms" text="%menu.view.rooms" fx:id="menuItemRooms"/>
+            <MenuItem onAction="#showReservations" text="%menu.view.reservations" fx:id="menuItemReservations" />
         </Menu>
         <Menu text="%menu.settings">
             <Menu mnemonicParsing="false" text="%menu.settings.theme">
@@ -27,6 +27,6 @@
             </Menu>
         </Menu>
     </MenuBar>
-    <RoomsView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" fx:id="roomsView"/>
     <ReservationsView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" fx:id="reservationsView"/>
+    <RoomsView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" fx:id="roomsView"/>
 </AnchorPane>
