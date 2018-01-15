@@ -16,9 +16,9 @@ import java.util.ResourceBundle;
 
 public class RoomsViewController implements Initializable {
     @FXML TableView<Room> roomsList;
-    @FXML TableColumn numberColumn;
-    @FXML TableColumn numberOfPersonsColumn;
-    @FXML TableColumn numberOfBedsColumn;
+    @FXML TableColumn<Room, String> numberColumn;
+    @FXML TableColumn<Room, Integer> numberOfPersonsColumn;
+    @FXML TableColumn<Room, Integer> numberOfBedsColumn;
 
     private RoomService roomService = RoomService.getInstance();
     private ObservableList<Room> rooms = FXCollections.observableList(new LinkedList<>());
@@ -26,13 +26,13 @@ public class RoomsViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         numberColumn.setCellValueFactory(
-                new PropertyValueFactory<Room, String>("number")
+                new PropertyValueFactory<>("number")
         );
         numberOfPersonsColumn.setCellValueFactory(
-                new PropertyValueFactory<Room, String>("numberOfPersons")
+                new PropertyValueFactory<>("numberOfPersons")
         );
         numberOfBedsColumn.setCellValueFactory(
-                new PropertyValueFactory<Room, String>("numberOfBeds")
+                new PropertyValueFactory<>("numberOfBeds")
         );
 
         rooms = roomService.getRoomsList();
