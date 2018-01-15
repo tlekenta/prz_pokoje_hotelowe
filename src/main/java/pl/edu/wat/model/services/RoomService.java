@@ -9,7 +9,7 @@ import pl.edu.wat.model.entities.Room;
 import java.util.List;
 
 public class RoomService implements ListChangeListener<Room>{
-    private static RoomService instance;
+    private static RoomService instance = new RoomService();
     private RoomDAO roomDAO = new RoomDAO();
 
     private RoomService(){
@@ -17,10 +17,6 @@ public class RoomService implements ListChangeListener<Room>{
     }
 
     public static RoomService getInstance(){
-        if(instance == null){
-            instance = new RoomService();
-        }
-
         return instance;
     }
 

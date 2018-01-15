@@ -11,7 +11,7 @@ import pl.edu.wat.model.entities.Room;
 import pl.edu.wat.model.services.RoomService;
 
 import java.net.URL;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class RoomsViewController implements Initializable {
@@ -21,7 +21,7 @@ public class RoomsViewController implements Initializable {
     @FXML TableColumn<Room, Integer> numberOfBedsColumn;
 
     private RoomService roomService = RoomService.getInstance();
-    private ObservableList<Room> rooms = FXCollections.observableList(new LinkedList<>());
+    private ObservableList<Room> rooms = FXCollections.observableList(Collections.emptyList());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
