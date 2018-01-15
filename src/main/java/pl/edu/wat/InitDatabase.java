@@ -15,6 +15,10 @@ public class InitDatabase extends Preloader {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        initDatabase();
+    }
+
+    public void initDatabase() {
         Room room1 = new Room();
         room1.setNumber("1");
         room1.setNumberOfPersons(2);

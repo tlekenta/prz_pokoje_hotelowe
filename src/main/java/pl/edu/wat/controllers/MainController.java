@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import pl.edu.wat.ApplicationSettingsReader;
+import pl.edu.wat.InitDatabase;
 import pl.edu.wat.Main;
 import pl.edu.wat.view.ReservationsView;
 import pl.edu.wat.view.RoomsView;
@@ -95,6 +96,7 @@ public class MainController {
             );
             Platform.runLater(() -> {
                 try {
+                    new InitDatabase().initDatabase();
                     new Main().start(new Stage());
                 } catch (Exception e) {
                     e.printStackTrace();
