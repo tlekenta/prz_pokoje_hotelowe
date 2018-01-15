@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import pl.edu.wat.model.dao.RoomDAO;
 import pl.edu.wat.model.entities.Room;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class RoomService implements ListChangeListener<Room>{
@@ -30,7 +29,7 @@ public class RoomService implements ListChangeListener<Room>{
     }
 
     public ObservableList<Room> getRoomsList(){
-        List<Room> rooms = roomDAO.getRoomsList();
+        List<Room> rooms = roomDAO.getList();
 
         return FXCollections.observableList(rooms);
     }
