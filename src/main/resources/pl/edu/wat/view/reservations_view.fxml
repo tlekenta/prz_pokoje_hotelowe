@@ -10,7 +10,7 @@
            AnchorPane.leftAnchor="0.0"
            AnchorPane.rightAnchor="0.0"
            AnchorPane.topAnchor="0.0"
-           fx:id="reservationsList">
+           fx:id="reservationsTable">
     <columns>
         <TableColumn text="%reservations.table.col1" fx:id="dateFromColumn"/>
         <TableColumn text="%reservations.table.col2" fx:id="dateToColumn"/>

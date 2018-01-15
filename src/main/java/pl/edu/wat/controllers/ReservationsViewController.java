@@ -1,8 +1,7 @@
 package pl.edu.wat.controllers;
 
-import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,19 +9,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.edu.wat.model.entities.Reservation;
-import pl.edu.wat.model.entities.Room;
 import pl.edu.wat.model.services.ReservationService;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
-public class ReservationsViewController implements Initializable {
+public class ReservationsViewController implements Initializable, ListChangeListener<Reservation> {
 
     @FXML
-    TableView<Reservation> reservationsList;
+    TableView<Reservation> reservationsTable;
 
     @FXML
     TableColumn<Reservation, LocalDate> dateFromColumn;
@@ -35,10 +31,10 @@ public class ReservationsViewController implements Initializable {
 
     private ReservationService reservationService = ReservationService.getInstance();
 
-    private ObservableList<Reservation> reservations = FXCollections.observableList(Collections.emptyList());
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        reservationService.getObservableList().addListener(this);
+
         dateFromColumn.setCellValueFactory(
                 new PropertyValueFactory<>("dateFrom")
         );
@@ -49,9 +45,11 @@ public class ReservationsViewController implements Initializable {
                 new ReadOnlyStringWrapper(cellData.getValue().getRoom().getNumber())
         );
 
-        reservations = reservationService.getReservationsList();
+        reservationService.getReservationsList();
+    }
 
-        reservationsList.setItems(reservations);
-
+    @Override
+    public void onChanged(Change<? extends Reservation> c) {
+        reservationsTable.setItems((ObservableList<Reservation>) c.getList());
     }
 }

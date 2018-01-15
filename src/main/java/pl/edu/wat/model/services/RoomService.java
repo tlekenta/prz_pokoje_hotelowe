@@ -19,7 +19,7 @@ public class RoomService {
 
     private RoomService(){
         executorService = Executors.newSingleThreadExecutor(r -> {
-            Thread t = new Thread();
+            Thread t = new Thread(r);
             t.setDaemon(true);
             return t;
         });
@@ -30,7 +30,7 @@ public class RoomService {
     }
 
     public void getRoomsList(){
-        executorService.submit(() -> {
+        executorService.execute(() -> {
             List<Room> rooms = roomDAO.getList();
             observableList.clear();
             observableList.addAll(rooms);
