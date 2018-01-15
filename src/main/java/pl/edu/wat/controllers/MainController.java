@@ -3,14 +3,17 @@ package pl.edu.wat.controllers;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import pl.edu.wat.ApplicationSettingsReader;
 import pl.edu.wat.Main;
+import pl.edu.wat.view.ReservationsView;
 import pl.edu.wat.view.RoomsView;
 
 import java.util.Optional;
@@ -24,14 +27,27 @@ public class MainController {
     @FXML
     RoomsView roomsView;
 
+    @FXML
+    ReservationsView reservationsView;
+
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
 
     public void showRooms() {
+        hideAll();
         roomsView.setVisible(true);
     }
 
     public void showReservations() {
-        roomsView.setVisible(false);
+        hideAll();
+        reservationsView.setVisible(true);
+    }
+
+    private void hideAll() {
+        AnchorPane parent = (AnchorPane) roomsView.getParent();
+        for(Node node: parent.getChildren()) {
+            node.setVisible(false);
+        }
+        topMenu.setVisible(true);
     }
 
     public void changeLanguage(Event e) {
