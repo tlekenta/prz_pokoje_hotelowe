@@ -19,10 +19,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class ApplicationSettingsReader {
     private static Map<String, String> settingsList;
@@ -56,7 +53,7 @@ public class ApplicationSettingsReader {
         settingsList.put("language", language);
     }
 
-    private synchronized Map loadSettings() throws ParserConfigurationException, IOException, SAXException {
+    private Map loadSettings() throws ParserConfigurationException, IOException, SAXException {
         File xml = new File(PATH_TO_SETTINGS);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
