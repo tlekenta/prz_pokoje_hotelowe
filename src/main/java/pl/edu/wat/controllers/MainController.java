@@ -1,29 +1,38 @@
 package pl.edu.wat.controllers;
 
-import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import pl.edu.wat.ApplicationSettingsReader;
+import pl.edu.wat.view.RoomsView;
 
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MenuController {
+public class MainController {
 
     @FXML
     MenuBar topMenu;
 
+    @FXML
+    RoomsView roomsView;
+
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
 
-    public void changeLanguage(Event e){
+    public void showRooms() {
+        roomsView.setVisible(true);
+    }
+
+    public void showReservations() {
+        roomsView.setVisible(false);
+    }
+
+    public void changeLanguage(Event e) {
         Object src = e.getSource();
         MenuItem item = (MenuItem) src;
         switch (item.getText()){
@@ -39,7 +48,7 @@ public class MenuController {
         showInfo("lang");
     }
 
-    public void changeTheme(Event e){
+    public void changeTheme(Event e) {
         Object src = e.getSource();
         MenuItem item = (MenuItem) src;
 
@@ -47,7 +56,7 @@ public class MenuController {
         showInfo("theme");
     }
 
-    private void showInfo(String which){
+    private void showInfo(String which) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         ResourceBundle bundle = ResourceBundle
                 .getBundle("i18n.lang", asr.getLanguage());

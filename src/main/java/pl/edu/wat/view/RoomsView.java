@@ -8,14 +8,14 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class TopMenu extends AnchorPane {
+public class RoomsView extends AnchorPane {
 
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
 
-    public TopMenu() throws IOException {
+    public RoomsView() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         Locale locale = asr.getLanguage();
         loader.setResources(ResourceBundle.getBundle("i18n.lang", locale));
-        getChildren().add(loader.load(getClass().getResource("top_menu.fxml").openStream()));
+        getChildren().add(loader.load(getClass().getResource("rooms_view.fxml").openStream()));
     }
 }
