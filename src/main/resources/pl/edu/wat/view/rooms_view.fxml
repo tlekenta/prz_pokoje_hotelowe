@@ -13,7 +13,7 @@
            AnchorPane.leftAnchor="0.0"
            AnchorPane.rightAnchor="0.0"
            AnchorPane.topAnchor="0.0"
-           fx:id="roomsList">
+           fx:id="roomsTable">
     <columns>
         <TableColumn text="%rooms.table.col1" fx:id="numberColumn"/>
         <TableColumn text="%rooms.table.col2" fx:id="numberOfPersonsColumn"/>

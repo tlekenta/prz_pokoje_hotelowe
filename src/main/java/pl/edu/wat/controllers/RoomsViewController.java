@@ -1,6 +1,6 @@
 package pl.edu.wat.controllers;
 
-import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,17 +11,15 @@ import pl.edu.wat.model.entities.Room;
 import pl.edu.wat.model.services.RoomService;
 
 import java.net.URL;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
-public class RoomsViewController implements Initializable {
-    @FXML TableView<Room> roomsList;
+public class RoomsViewController implements Initializable, ListChangeListener<Room> {
+    @FXML TableView<Room> roomsTable;
     @FXML TableColumn<Room, String> numberColumn;
     @FXML TableColumn<Room, Integer> numberOfPersonsColumn;
     @FXML TableColumn<Room, Integer> numberOfBedsColumn;
 
     private RoomService roomService = RoomService.getInstance();
-    private ObservableList<Room> rooms = FXCollections.observableList(Collections.emptyList());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,11 +33,13 @@ public class RoomsViewController implements Initializable {
                 new PropertyValueFactory<>("numberOfBeds")
         );
 
-        rooms = roomService.getRoomsList();
-        rooms.addListener(roomService);
-
-        roomsList.setItems(rooms);
+        roomService.getObservableList().addListener(this);
+        roomService.getRoomsList();
     }
 
 
+    @Override
+    public void onChanged(Change<? extends Room> c) {
+        roomsTable.setItems((ObservableList<Room>) c.getList());
+    }
 }
