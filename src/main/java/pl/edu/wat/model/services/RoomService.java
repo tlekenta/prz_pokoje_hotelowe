@@ -18,7 +18,11 @@ public class RoomService {
     @Getter private final ObservableList<Room> observableList = FXCollections.observableList(new LinkedList<>());
 
     private RoomService(){
-        executorService = Executors.newFixedThreadPool(5);
+        executorService = Executors.newSingleThreadExecutor(r -> {
+            Thread t = new Thread();
+            t.setDaemon(true);
+            return t;
+        });
     }
 
     public static RoomService getInstance(){
