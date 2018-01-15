@@ -1,5 +1,6 @@
 package pl.edu.wat.controllers;
 
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -9,6 +10,7 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import pl.edu.wat.ApplicationSettingsReader;
+import pl.edu.wat.Main;
 import pl.edu.wat.view.RoomsView;
 
 import java.util.Optional;
@@ -75,6 +77,13 @@ public class MainController {
                     WindowEvent.WINDOW_CLOSE_REQUEST
                 )
             );
+            Platform.runLater(() -> {
+                try {
+                    new Main().start(new Stage());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
         }
     }
 
