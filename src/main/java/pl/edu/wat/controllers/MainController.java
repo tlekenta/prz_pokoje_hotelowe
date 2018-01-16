@@ -23,6 +23,8 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static javafx.application.Application.setUserAgentStylesheet;
+
 public class MainController implements Initializable {
 
     @FXML
@@ -126,7 +128,8 @@ public class MainController implements Initializable {
         MenuItem item = (MenuItem) src;
 
         asr.setTheme(item.getText());
-        showInfo("theme");
+        setUserAgentStylesheet(asr.getTheme());
+
     }
 
     private void showInfo(String which) {
