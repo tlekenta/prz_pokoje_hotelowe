@@ -1,14 +1,12 @@
 package pl.edu.wat.controllers;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -31,10 +29,7 @@ public class MainController implements Initializable {
     MenuBar topMenu;
 
     @FXML
-    MenuItem menuItemRooms;
-
-    @FXML
-    MenuItem menuItemReservations;
+    Menu viewMenu;
 
     @FXML
     RoomsView roomsView;
@@ -45,10 +40,6 @@ public class MainController implements Initializable {
     @FXML
     ReservationAddView reservationAddView;
 
-    @FXML
-    MenuItem menuItemAddReservation;
-
-
     ImageView checkedIcon;
 
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
@@ -57,31 +48,53 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Image image = new Image(getClass().getResourceAsStream("../view/icons/checked.png"));
         checkedIcon = new ImageView(image);
-        menuItemRooms.setGraphic(checkedIcon);
+        viewMenu.getItems().get(0).setGraphic(checkedIcon);
+    }
+
+    public void switchView(ActionEvent event) {
+        Object o = event.getSource();
+        if(o instanceof MenuItem) {
+            MenuItem source = (MenuItem) o;
+            int index = 0;
+            for(MenuItem menuItem: viewMenu.getItems()) {
+                menuItem.setGraphic(null);
+                if(menuItem.equals(source)) {
+                    showView(index);
+                    menuItem.setGraphic(checkedIcon);
+                }
+                index++;
+            }
+        }
+    }
+
+    private void showView(int index) {
+        hideAll();
+        switch (index) {
+            case 0:
+                roomsView.setVisible(true);
+                break;
+            case 1:
+                reservationsView.setVisible(true);
+                break;
+            case 2:
+                reservationAddView.setVisible(true);
+                break;
+        }
     }
 
     public void showRooms() {
         hideAll();
         roomsView.setVisible(true);
-        menuItemReservations.setGraphic(null);
-        menuItemRooms.setGraphic(checkedIcon);
-        menuItemAddReservation.setGraphic(null);
     }
 
     public void showReservations() {
         hideAll();
         reservationsView.setVisible(true);
-        menuItemReservations.setGraphic(checkedIcon);
-        menuItemRooms.setGraphic(null);
-        menuItemAddReservation.setGraphic(null);
     }
 
     public void showAddReservation() {
         hideAll();
         reservationAddView.setVisible(true);
-        menuItemReservations.setGraphic(null);
-        menuItemRooms.setGraphic(null);
-        menuItemAddReservation.setGraphic(checkedIcon);
     }
 
     private void hideAll() {

@@ -13,10 +13,10 @@
         <Menu text="%menu.file">
             <MenuItem text="%menu.file.close" />
         </Menu>
-        <Menu text="%menu.view">
-            <MenuItem onAction="#showRooms" text="%menu.view.rooms" fx:id="menuItemRooms"/>
-            <MenuItem onAction="#showReservations" text="%menu.view.reservations" fx:id="menuItemReservations" />
-            <MenuItem onAction="#showAddReservation" text="%menu.view.addReservation" fx:id="menuItemAddReservation" />
+        <Menu text="%menu.view" fx:id="viewMenu">
+            <MenuItem onAction="#switchView" text="%menu.view.rooms" />
+            <MenuItem onAction="#switchView" text="%menu.view.reservations" />
+            <MenuItem onAction="#switchView" text="%menu.view.addReservation" />
         </Menu>
         <Menu text="%menu.settings">
             <Menu mnemonicParsing="false" text="%menu.settings.theme">
