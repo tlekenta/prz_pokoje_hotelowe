@@ -17,6 +17,7 @@ import javafx.stage.WindowEvent;
 import pl.edu.wat.ApplicationSettingsReader;
 import pl.edu.wat.InitDatabase;
 import pl.edu.wat.Main;
+import pl.edu.wat.view.ReservationAddView;
 import pl.edu.wat.view.ReservationsView;
 import pl.edu.wat.view.RoomsView;
 
@@ -41,6 +42,13 @@ public class MainController implements Initializable {
     @FXML
     ReservationsView reservationsView;
 
+    @FXML
+    ReservationAddView reservationAddView;
+
+    @FXML
+    MenuItem menuItemAddReservation;
+
+
     ImageView checkedIcon;
 
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
@@ -55,8 +63,9 @@ public class MainController implements Initializable {
     public void showRooms() {
         hideAll();
         roomsView.setVisible(true);
-        menuItemRooms.setGraphic(checkedIcon);
         menuItemReservations.setGraphic(null);
+        menuItemRooms.setGraphic(checkedIcon);
+        menuItemAddReservation.setGraphic(null);
     }
 
     public void showReservations() {
@@ -64,6 +73,15 @@ public class MainController implements Initializable {
         reservationsView.setVisible(true);
         menuItemReservations.setGraphic(checkedIcon);
         menuItemRooms.setGraphic(null);
+        menuItemAddReservation.setGraphic(null);
+    }
+
+    public void showAddReservation() {
+        hideAll();
+        reservationAddView.setVisible(true);
+        menuItemReservations.setGraphic(null);
+        menuItemRooms.setGraphic(null);
+        menuItemAddReservation.setGraphic(checkedIcon);
     }
 
     private void hideAll() {

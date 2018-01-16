@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.MenuBar?>
 <?import pl.edu.wat.view.ReservationsView?>
+<?import pl.edu.wat.view.ReservationAddView?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.wat.controllers.MainController">
     <MenuBar fx:id="topMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" >
         <Menu text="%menu.file">
@@ -15,6 +16,7 @@
         <Menu text="%menu.view">
             <MenuItem onAction="#showRooms" text="%menu.view.rooms" fx:id="menuItemRooms"/>
             <MenuItem onAction="#showReservations" text="%menu.view.reservations" fx:id="menuItemReservations" />
+            <MenuItem onAction="#showAddReservation" text="%menu.view.addReservation" fx:id="menuItemAddReservation" />
         </Menu>
         <Menu text="%menu.settings">
             <Menu mnemonicParsing="false" text="%menu.settings.theme">
@@ -29,4 +31,5 @@
     </MenuBar>
     <ReservationsView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" fx:id="reservationsView"/>
     <RoomsView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" fx:id="roomsView"/>
+    <ReservationAddView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" fx:id="reservationAddView"/>
 </AnchorPane>
