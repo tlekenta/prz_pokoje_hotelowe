@@ -84,21 +84,6 @@ public class MainController implements Initializable {
         }
     }
 
-    public void showRooms() {
-        hideAll();
-        roomsView.setVisible(true);
-    }
-
-    public void showReservations() {
-        hideAll();
-        reservationsView.setVisible(true);
-    }
-
-    public void showAddReservation() {
-        hideAll();
-        reservationAddView.setVisible(true);
-    }
-
     private void hideAll() {
         AnchorPane parent = (AnchorPane) roomsView.getParent();
         for(Node node: parent.getChildren()) {
