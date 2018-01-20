@@ -51,5 +51,6 @@ public class ReservationsViewController implements Initializable, ListChangeList
     @Override
     public void onChanged(Change<? extends Reservation> c) {
         reservationsTable.setItems((ObservableList<Reservation>) c.getList());
+        reservationService.getObservableList().removeListener(this);
     }
 }

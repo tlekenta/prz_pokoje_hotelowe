@@ -41,5 +41,6 @@ public class RoomsViewController implements Initializable, ListChangeListener<Ro
     @Override
     public void onChanged(Change<? extends Room> c) {
         roomsTable.setItems((ObservableList<Room>) c.getList());
+        roomService.getObservableList().removeListener(this);
     }
 }

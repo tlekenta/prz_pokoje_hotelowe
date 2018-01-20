@@ -113,5 +113,6 @@ public class ReservationAddController implements Initializable, ListChangeListen
     @Override
     public void onChanged(Change<? extends Room> c) {
         roomsBox.setItems((ObservableList<Room>) c.getList());
+        roomService.getObservableList().removeListener(this);
     }
 }
