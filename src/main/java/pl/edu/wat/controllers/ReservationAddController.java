@@ -84,15 +84,21 @@ public class ReservationAddController implements Initializable, ListChangeListen
     }
 
     public void dateFromSelected() {
-        reservation.setDateFrom(dateFromPicker.getValue().plusDays(1));
+        if(dateFromPicker.getValue() != null)
+            reservation.setDateFrom(dateFromPicker.getValue().plusDays(1));
     }
 
     public void dateToSelected() {
-        reservation.setDateTo(dateToPicker.getValue().plusDays(1));
+        if(dateToPicker.getValue() != null)
+            reservation.setDateTo(dateToPicker.getValue().plusDays(1));
     }
 
     public void save() {
         reservationService.save(reservation);
+        reservation = new Reservation();
+        roomsBox.setValue(null);
+        dateFromPicker.setValue(null);
+        dateToPicker.setValue(null);
     }
 
     void updateWidth(double newWidth) {
