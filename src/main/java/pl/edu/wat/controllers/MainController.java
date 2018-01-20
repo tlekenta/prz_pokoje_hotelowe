@@ -1,6 +1,5 @@
 package pl.edu.wat.controllers;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -10,18 +9,13 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import pl.edu.wat.ApplicationSettingsReader;
-import pl.edu.wat.InitDatabase;
-import pl.edu.wat.Main;
 import pl.edu.wat.events.AlertEvent;
 import pl.edu.wat.view.ReservationAddView;
 import pl.edu.wat.view.ReservationsView;
 import pl.edu.wat.view.RoomsView;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static javafx.application.Application.setUserAgentStylesheet;
@@ -53,6 +47,7 @@ public class MainController implements Initializable {
         checkedIcon = new ImageView(image);
         viewMenu.getItems().get(0).setGraphic(checkedIcon);
         topMenu.addEventHandler(AlertEvent.LANGUAGE_CHANGE, AlertController.getInstance());
+        topMenu.addEventHandler(AlertEvent.THEME_CHANGE, AlertController.getInstance());
     }
 
     public void switchView(ActionEvent event) {
@@ -108,7 +103,6 @@ public class MainController implements Initializable {
                 break;
         }
         topMenu.fireEvent(new AlertEvent(AlertEvent.LANGUAGE_CHANGE));
-        showInfo("lang");
     }
 
     public void changeTheme(Event e) {
@@ -118,36 +112,7 @@ public class MainController implements Initializable {
         asr.setTheme(item.getText());
         setUserAgentStylesheet(asr.getTheme());
 
-    }
-
-    private void showInfo(String which) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        ResourceBundle bundle = ResourceBundle
-                .getBundle("i18n.lang", asr.getLanguage());
-
-        alert.setTitle(bundle.getString("info.title.info"));
-        alert.setHeaderText(bundle.getString("info." + which + ".header"));
-        alert.setContentText(bundle.getString("info." + which + ".content"));
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.OK){
-            Stage stage = (Stage)topMenu.getScene().getWindow();
-            stage.fireEvent(
-                new WindowEvent(
-                    stage,
-                    WindowEvent.WINDOW_CLOSE_REQUEST
-                )
-            );
-            Platform.runLater(() -> {
-                try {
-                    new InitDatabase().initDatabase();
-                    new Main().start(new Stage());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-        }
+        topMenu.fireEvent(new AlertEvent(AlertEvent.THEME_CHANGE));
     }
 
 }
