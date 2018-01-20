@@ -3,19 +3,18 @@ package pl.edu.wat.controllers;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import pl.edu.wat.ApplicationSettingsReader;
 import pl.edu.wat.events.AlertEvent;
-import pl.edu.wat.view.ReservationAddView;
-import pl.edu.wat.view.ReservationsView;
-import pl.edu.wat.view.RoomsView;
+import pl.edu.wat.view.CustomView;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static javafx.application.Application.setUserAgentStylesheet;
@@ -29,13 +28,7 @@ public class MainController implements Initializable {
     Menu viewMenu;
 
     @FXML
-    RoomsView roomsView;
-
-    @FXML
-    ReservationsView reservationsView;
-
-    @FXML
-    ReservationAddView reservationAddView;
+    CustomView customView;
 
     ImageView checkedIcon;
 
@@ -48,9 +41,15 @@ public class MainController implements Initializable {
         viewMenu.getItems().get(0).setGraphic(checkedIcon);
         topMenu.addEventHandler(AlertEvent.LANGUAGE_CHANGE, AlertController.getInstance());
         topMenu.addEventHandler(AlertEvent.THEME_CHANGE, AlertController.getInstance());
+        customView.getChildren().clear();
+        try {
+            customView.getChildren().add(FXMLLoader.load(getClass().getResource("../view/rooms_view.fxml"), resources));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void switchView(ActionEvent event) {
+    public void switchView(ActionEvent event) throws IOException {
         Object o = event.getSource();
         if(o instanceof MenuItem) {
             MenuItem source = (MenuItem) o;
@@ -66,27 +65,21 @@ public class MainController implements Initializable {
         }
     }
 
-    private void showView(int index) {
-        hideAll();
+    private void showView(int index) throws IOException {
+        Locale locale = asr.getLanguage();
+        ResourceBundle resources = ResourceBundle.getBundle("i18n.lang", locale);
+        customView.getChildren().clear();
         switch (index) {
             case 0:
-                roomsView.setVisible(true);
+                customView.getChildren().add(FXMLLoader.load(getClass().getResource("../view/rooms_view.fxml"), resources));
                 break;
             case 1:
-                reservationsView.setVisible(true);
+                customView.getChildren().add(FXMLLoader.load(getClass().getResource("../view/reservations_view.fxml"), resources));
                 break;
             case 2:
-                reservationAddView.setVisible(true);
+                customView.getChildren().add(FXMLLoader.load(getClass().getResource("../view/reservation_add_view.fxml"), resources));
                 break;
         }
-    }
-
-    private void hideAll() {
-        AnchorPane parent = (AnchorPane) roomsView.getParent();
-        for(Node node: parent.getChildren()) {
-            node.setVisible(false);
-        }
-        topMenu.setVisible(true);
     }
 
     public void changeLanguage(Event e) {
