@@ -5,9 +5,10 @@ import pl.edu.wat.exceptions.EmptyDatabaseTableException;
 import pl.edu.wat.model.entities.Reservation;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class ReservationsDAO implements GenericDAO<Reservation> {
+public class ReservationsDAO implements IGenericDAO<Reservation> {
 
     @Override
     public List<Reservation> getList() {
@@ -23,6 +24,19 @@ public class ReservationsDAO implements GenericDAO<Reservation> {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public Reservation getById(Long id) {
+        EntityManager em = EntityManagerFactory.getEntityManager();
+
+        TypedQuery<Reservation> query = em.createQuery("SELECT r FROM Room r WHERE r.id = :arg1", Reservation.class);
+        query.setParameter("arg1", id);
+
+        Reservation reservation = query.getSingleResult();
+
+        em.close();
+        return reservation;
     }
 
 }

@@ -38,4 +38,7 @@ public class RoomService {
 
     }
 
+    public Room getById(Long number) {
+        return roomDAO.getById(number);
+    }
 }
