@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="pl.edu.wat.controllers.ReservationAddController"
-            prefHeight="400.0" prefWidth="600.0">
-
+            fx:id="mainPane"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="leftPane"
+                  AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0"
+                  AnchorPane.topAnchor="0.0"
+                  style="-fx-background-color: red"/>
+      <AnchorPane fx:id="rightPane"
+                  AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0"
+                  style="-fx-background-color: blue"/>
 </AnchorPane>

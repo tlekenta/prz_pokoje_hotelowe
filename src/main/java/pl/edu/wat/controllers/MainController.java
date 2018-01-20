@@ -66,18 +66,22 @@ public class MainController implements Initializable {
     }
 
     private void showView(int index) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
         Locale locale = asr.getLanguage();
-        ResourceBundle resources = ResourceBundle.getBundle("i18n.lang", locale);
+        loader.setResources(ResourceBundle.getBundle("i18n.lang", locale));
         customView.getChildren().clear();
         switch (index) {
             case 0:
-                customView.getChildren().add(FXMLLoader.load(getClass().getResource("../view/rooms_view.fxml"), resources));
+                customView.getChildren().add(loader.load(getClass().getResource("../view/rooms_view.fxml").openStream()));
                 break;
             case 1:
-                customView.getChildren().add(FXMLLoader.load(getClass().getResource("../view/reservations_view.fxml"), resources));
+                customView.getChildren().add(loader.load(getClass().getResource("../view/reservations_view.fxml").openStream()));
                 break;
             case 2:
-                customView.getChildren().add(FXMLLoader.load(getClass().getResource("../view/reservation_add_view.fxml"), resources));
+                customView.getChildren().add(loader.load(getClass().getResource("../view/reservation_add_view.fxml").openStream()));
+                ReservationAddController controller =  loader.getController();
+                customView.getScene().widthProperty().addListener(controller);
+                controller.updateWidth(customView.getWidth() / 2);
                 break;
         }
     }
