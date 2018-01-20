@@ -15,7 +15,7 @@ public class InitDatabase extends Preloader {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        initDatabase();
+        new Thread(this::initDatabase).start();
     }
 
     public void initDatabase() {
@@ -30,7 +30,6 @@ public class InitDatabase extends Preloader {
         room2.setNumberOfPersons(3);
         room2.setNumberOfBeds(2);
         roomDAO.save(room2);
-
 
         Room room3 = new Room();
         room3.setNumber("3");
