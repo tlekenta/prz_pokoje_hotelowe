@@ -15,6 +15,7 @@ import javafx.stage.WindowEvent;
 import pl.edu.wat.ApplicationSettingsReader;
 import pl.edu.wat.InitDatabase;
 import pl.edu.wat.Main;
+import pl.edu.wat.events.AlertEvent;
 import pl.edu.wat.view.ReservationAddView;
 import pl.edu.wat.view.ReservationsView;
 import pl.edu.wat.view.RoomsView;
@@ -51,6 +52,7 @@ public class MainController implements Initializable {
         Image image = new Image(getClass().getResourceAsStream("../view/icons/checked.png"));
         checkedIcon = new ImageView(image);
         viewMenu.getItems().get(0).setGraphic(checkedIcon);
+        topMenu.addEventHandler(AlertEvent.LANGUAGE_CHANGE, AlertController.getInstance());
     }
 
     public void switchView(ActionEvent event) {
@@ -105,6 +107,7 @@ public class MainController implements Initializable {
             default:
                 break;
         }
+        topMenu.fireEvent(new AlertEvent(AlertEvent.LANGUAGE_CHANGE));
         showInfo("lang");
     }
 
