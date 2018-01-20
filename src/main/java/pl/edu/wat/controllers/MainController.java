@@ -80,8 +80,10 @@ public class MainController implements Initializable {
             case 2:
                 customView.getChildren().add(loader.load(getClass().getResource("../view/reservation_add_view.fxml").openStream()));
                 ReservationAddController controller =  loader.getController();
-                customView.getScene().widthProperty().addListener(controller);
-                controller.updateWidth(customView.getWidth() / 2);
+                customView.getScene().widthProperty().addListener((observable, oldValue, newValue) -> controller.updateWidth(newValue.doubleValue()));
+                customView.getScene().heightProperty().addListener((observable, oldValue, newValue) -> controller.updateHeight(newValue.doubleValue()));
+                controller.updateWidth(customView.getWidth());
+                controller.updateHeight(customView.getHeight());
                 break;
         }
     }

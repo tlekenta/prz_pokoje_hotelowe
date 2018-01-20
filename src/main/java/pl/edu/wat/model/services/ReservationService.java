@@ -39,4 +39,8 @@ public class ReservationService {
         });
     }
 
+    public Reservation save(Reservation reservation) {
+        return reservationsDAO.save(reservation);
+    }
+
 }
