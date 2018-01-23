@@ -29,11 +29,13 @@ public class ReservationsViewController implements Initializable {
     @FXML
     TableColumn<Reservation, String> roomNumberColumn;
 
+    @FXML
+    TableColumn<Reservation, Double> priceColumn;
+
     private ReservationService reservationService = ReservationService.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         dateFromColumn.setCellValueFactory(
                 new PropertyValueFactory<>("dateFrom")
         );
@@ -42,6 +44,9 @@ public class ReservationsViewController implements Initializable {
         );
         roomNumberColumn.setCellValueFactory((cellData) ->
                 new ReadOnlyStringWrapper(cellData.getValue().getRoom().getNumber())
+        );
+        priceColumn.setCellValueFactory(
+                new PropertyValueFactory<>("totalPrice")
         );
 
         reservationService.getReservationsList()

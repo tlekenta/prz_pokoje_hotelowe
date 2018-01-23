@@ -18,6 +18,7 @@ public class RoomsViewController implements Initializable {
     @FXML TableColumn<Room, String> numberColumn;
     @FXML TableColumn<Room, Integer> numberOfPersonsColumn;
     @FXML TableColumn<Room, Integer> numberOfBedsColumn;
+    @FXML TableColumn<Room, Double> priceColumn;
 
     private RoomService roomService = RoomService.getInstance();
 
@@ -31,6 +32,9 @@ public class RoomsViewController implements Initializable {
         );
         numberOfBedsColumn.setCellValueFactory(
                 new PropertyValueFactory<>("numberOfBeds")
+        );
+        priceColumn.setCellValueFactory(
+                new PropertyValueFactory<>("pricePerNight")
         );
 
         roomService.getRoomsList()
