@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import pl.edu.wat.ApplicationSettingsReader;
 import pl.edu.wat.events.ChangeViewEvent;
-import pl.edu.wat.view.CustomView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +20,7 @@ public class MainController implements Initializable, EventHandler<ChangeViewEve
     MenuBar topMenu;
 
     @FXML
-    CustomView customView;
+    AnchorPane customView;
 
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
 
