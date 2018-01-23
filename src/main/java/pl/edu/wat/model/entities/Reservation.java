@@ -16,6 +16,8 @@ public class Reservation {
 
     private LocalDate dateTo;
 
+    private Double totalPrice;
+
     @ManyToOne
     private Room room;
 
