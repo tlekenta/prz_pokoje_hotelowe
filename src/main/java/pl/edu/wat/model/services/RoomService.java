@@ -2,7 +2,6 @@ package pl.edu.wat.model.services;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import lombok.Getter;
 import pl.edu.wat.model.dao.RoomDAO;
 import pl.edu.wat.model.entities.Room;
 
@@ -15,7 +14,6 @@ public class RoomService {
     private static RoomService instance = new RoomService();
     private RoomDAO roomDAO = new RoomDAO();
     ExecutorService executorService;
-    @Getter private final ObservableList<Room> observableList = FXCollections.observableList(new LinkedList<>());
 
     private RoomService(){
         executorService = Executors.newSingleThreadExecutor(r -> {
@@ -29,13 +27,15 @@ public class RoomService {
         return instance;
     }
 
-    public void getRoomsList(){
+    public ObservableList<Room> getRoomsList(){
+        final ObservableList<Room> observableList = FXCollections.observableList(new LinkedList<>());
+
         executorService.execute(() -> {
             List<Room> rooms = roomDAO.getList();
-            observableList.clear();
             observableList.addAll(rooms);
         });
 
+        return observableList;
     }
 
     public Room getById(Long number) {

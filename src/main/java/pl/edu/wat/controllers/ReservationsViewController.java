@@ -15,7 +15,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class ReservationsViewController implements Initializable, ListChangeListener<Reservation> {
+public class ReservationsViewController implements Initializable {
 
     @FXML
     TableView<Reservation> reservationsTable;
@@ -33,7 +33,6 @@ public class ReservationsViewController implements Initializable, ListChangeList
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        reservationService.getObservableList().addListener(this);
 
         dateFromColumn.setCellValueFactory(
                 new PropertyValueFactory<>("dateFrom")
@@ -45,12 +44,7 @@ public class ReservationsViewController implements Initializable, ListChangeList
                 new ReadOnlyStringWrapper(cellData.getValue().getRoom().getNumber())
         );
 
-        reservationService.getReservationsList();
-    }
-
-    @Override
-    public void onChanged(Change<? extends Reservation> c) {
-        reservationsTable.setItems((ObservableList<Reservation>) c.getList());
-        reservationService.getObservableList().removeListener(this);
+        reservationService.getReservationsList()
+                .addListener((ListChangeListener<Reservation>) c -> reservationsTable.setItems((ObservableList<Reservation>) c.getList()));
     }
 }

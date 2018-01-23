@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ReservationAddController implements Initializable, ListChangeListener<Room> {
+public class ReservationAddController implements Initializable {
 
     @FXML
     AnchorPane mainPane;
@@ -71,8 +71,8 @@ public class ReservationAddController implements Initializable, ListChangeListen
             }
         });
 
-        roomService.getObservableList().addListener(this);
-        roomService.getRoomsList();
+        roomService.getRoomsList()
+                .addListener((ListChangeListener<Room>) c -> roomsBox.setItems((ObservableList<Room>) c.getList()));
         mainPane.getScene().widthProperty().addListener((observable, oldValue, newValue) -> this.updateWidth(newValue.doubleValue()));
         mainPane.getScene().heightProperty().addListener((observable, oldValue, newValue) -> this.updateHeight(newValue.doubleValue()));
         this.updateWidth(mainPane.getWidth());
@@ -109,11 +109,5 @@ public class ReservationAddController implements Initializable, ListChangeListen
 
     void updateHeight(double height) {
 
-    }
-
-    @Override
-    public void onChanged(Change<? extends Room> c) {
-        roomsBox.setItems((ObservableList<Room>) c.getList());
-        roomService.getObservableList().removeListener(this);
     }
 }

@@ -13,7 +13,7 @@ import pl.edu.wat.model.services.RoomService;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RoomsViewController implements Initializable, ListChangeListener<Room> {
+public class RoomsViewController implements Initializable {
     @FXML TableView<Room> roomsTable;
     @FXML TableColumn<Room, String> numberColumn;
     @FXML TableColumn<Room, Integer> numberOfPersonsColumn;
@@ -33,14 +33,7 @@ public class RoomsViewController implements Initializable, ListChangeListener<Ro
                 new PropertyValueFactory<>("numberOfBeds")
         );
 
-        roomService.getObservableList().addListener(this);
-        roomService.getRoomsList();
-    }
-
-
-    @Override
-    public void onChanged(Change<? extends Room> c) {
-        roomsTable.setItems((ObservableList<Room>) c.getList());
-        roomService.getObservableList().removeListener(this);
+        roomService.getRoomsList()
+                .addListener((ListChangeListener<Room>) c -> roomsTable.setItems((ObservableList<Room>) c.getList()));
     }
 }
