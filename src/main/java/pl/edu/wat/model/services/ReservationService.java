@@ -1,5 +1,7 @@
 package pl.edu.wat.model.services;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import pl.edu.wat.model.dao.ReservationsDAO;
@@ -39,8 +41,13 @@ public class ReservationService {
         return observableList;
     }
 
-    public Reservation save(Reservation reservation) {
-        return reservationsDAO.save(reservation);
+    public ObservableValue<Reservation> save(Reservation reservation) {
+        final SimpleObjectProperty<Reservation> reservationObservableValue = new SimpleObjectProperty<>();
+        executorService.execute(() ->
+            reservationObservableValue.set(reservationsDAO.save(reservation))
+        );
+
+        return reservationObservableValue;
     }
 
 }
