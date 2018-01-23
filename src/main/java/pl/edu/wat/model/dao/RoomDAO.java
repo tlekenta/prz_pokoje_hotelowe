@@ -1,6 +1,5 @@
 package pl.edu.wat.model.dao;
 
-import pl.edu.wat.EntityManagerFactory;
 import pl.edu.wat.exceptions.EmptyDatabaseTableException;
 import pl.edu.wat.model.entities.Room;
 
@@ -12,7 +11,7 @@ public class RoomDAO implements IGenericDAO<Room> {
 
     @Override
     public List<Room> getList() {
-        EntityManager em = EntityManagerFactory.getEntityManager();
+        EntityManager em = emf.getEntityManager();
 
         List<Room> list = em.createQuery("SELECT r FROM Room r", Room.class).getResultList();
 
@@ -28,7 +27,7 @@ public class RoomDAO implements IGenericDAO<Room> {
 
     @Override
     public Room getById(Long id) {
-        EntityManager em = EntityManagerFactory.getEntityManager();
+        EntityManager em = emf.getEntityManager();
 
         TypedQuery<Room> query = em.createQuery("SELECT r FROM Room r WHERE r.id = :arg1", Room.class);
         query.setParameter("arg1", id);

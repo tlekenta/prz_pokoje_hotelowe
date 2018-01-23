@@ -3,13 +3,13 @@ package pl.edu.wat.model.dao;
 import pl.edu.wat.EntityManagerFactory;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 
 public interface IGenericDAO<T> {
+    EntityManagerFactory emf = new EntityManagerFactory();
 
     default T save(T toPersist) {
-        EntityManager em = EntityManagerFactory.getEntityManager();
+        EntityManager em = emf.getEntityManager();
         em.getTransaction().begin();
 
         em.persist(toPersist);
