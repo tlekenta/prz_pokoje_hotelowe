@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<fx:root type="javafx.scene.control.MenuBar" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pl.edu.wat.controllers.MenuController"
+            fx:id="menuBar">
+    <Menu text="%menu.file">
+        <MenuItem text="%menu.file.close" />
+    </Menu>
+    <Menu text="%menu.view" fx:id="viewMenu">
+        <MenuItem onAction="#switchView" text="%menu.view.rooms" />
+        <MenuItem onAction="#switchView" text="%menu.view.reservations" />
+        <MenuItem onAction="#switchView" text="%menu.view.addReservation" />
+    </Menu>
+    <Menu text="%menu.settings" fx:id="settingsMenu">
+        <Menu mnemonicParsing="false" text="%menu.settings.theme">
+            <MenuItem onAction="#changeTheme" text="MODENA" />
+            <MenuItem onAction="#changeTheme" text="CASPIAN" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="%menu.settings.lang">
+            <MenuItem onAction="#changeLanguage" text="Polski" />
+            <MenuItem onAction="#changeLanguage" text="English" />
+        </Menu>
+    </Menu>
+</fx:root>

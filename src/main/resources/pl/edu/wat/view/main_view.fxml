@@ -2,30 +2,9 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.MenuBar?>
 <?import pl.edu.wat.view.CustomView?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.wat.controllers.MainController">
-    <MenuBar fx:id="topMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" >
-        <Menu text="%menu.file">
-            <MenuItem text="%menu.file.close" />
-        </Menu>
-        <Menu text="%menu.view" fx:id="viewMenu">
-            <MenuItem onAction="#switchView" text="%menu.view.rooms" />
-            <MenuItem onAction="#switchView" text="%menu.view.reservations" />
-            <MenuItem onAction="#switchView" text="%menu.view.addReservation" />
-        </Menu>
-        <Menu text="%menu.settings">
-            <Menu mnemonicParsing="false" text="%menu.settings.theme">
-                <MenuItem onAction="#changeTheme" text="MODENA" />
-                <MenuItem onAction="#changeTheme" text="CASPIAN" />
-            </Menu>
-            <Menu mnemonicParsing="false" text="%menu.settings.lang">
-                <MenuItem onAction="#changeLanguage" text="Polski" />
-                <MenuItem onAction="#changeLanguage" text="English" />
-            </Menu>
-        </Menu>
-    </MenuBar>
-    <CustomView AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" fx:id="customView"/>
+    <MenuBar fx:id="topMenu" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <CustomView fx:id="customView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0"/>
 </AnchorPane>
