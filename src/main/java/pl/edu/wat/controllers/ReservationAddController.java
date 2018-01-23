@@ -67,7 +67,7 @@ public class ReservationAddController implements Initializable {
             @Override
             public Room fromString(String string) {
                 String id = string.split("\\.")[0];
-                return roomService.getById(Long.valueOf(id));
+                return roomService.getById(Long.valueOf(id)).getValue();
             }
         });
 

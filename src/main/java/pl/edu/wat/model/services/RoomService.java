@@ -1,5 +1,7 @@
 package pl.edu.wat.model.services;
 
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import pl.edu.wat.model.dao.RoomDAO;
@@ -38,7 +40,9 @@ public class RoomService {
         return observableList;
     }
 
-    public Room getById(Long number) {
-        return roomDAO.getById(number);
+    public ObservableValue<Room> getById(Long number) {
+        SimpleObjectProperty<Room> room = new SimpleObjectProperty<>();
+        executorService.execute(() -> room.set(roomDAO.getById(number)));
+        return room;
     }
 }
