@@ -73,6 +73,10 @@ public class ReservationAddController implements Initializable, ListChangeListen
 
         roomService.getObservableList().addListener(this);
         roomService.getRoomsList();
+        mainPane.getScene().widthProperty().addListener((observable, oldValue, newValue) -> this.updateWidth(newValue.doubleValue()));
+        mainPane.getScene().heightProperty().addListener((observable, oldValue, newValue) -> this.updateHeight(newValue.doubleValue()));
+        this.updateWidth(mainPane.getWidth());
+        this.updateHeight(mainPane.getHeight());
 
     }
 

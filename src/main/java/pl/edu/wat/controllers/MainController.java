@@ -60,11 +60,6 @@ public class MainController implements Initializable, EventHandler<ChangeViewEve
                 break;
             case RESERVATIONS_ADD_VIEW:
                 loadView(loader, "reservation_add_view");
-                ReservationAddController controller =  loader.getController();
-                customView.getScene().widthProperty().addListener((observable, oldValue, newValue) -> controller.updateWidth(newValue.doubleValue()));
-                customView.getScene().heightProperty().addListener((observable, oldValue, newValue) -> controller.updateHeight(newValue.doubleValue()));
-                controller.updateWidth(customView.getWidth());
-                controller.updateHeight(customView.getHeight());
                 break;
         }
     }
