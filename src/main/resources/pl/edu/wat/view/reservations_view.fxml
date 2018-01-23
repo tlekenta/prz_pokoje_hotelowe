@@ -3,17 +3,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TableView xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           fx:controller="pl.edu.wat.controllers.ReservationsViewController"
-           AnchorPane.bottomAnchor="0.0"
-           AnchorPane.leftAnchor="0.0"
-           AnchorPane.rightAnchor="0.0"
-           AnchorPane.topAnchor="0.0"
-           fx:id="reservationsTable">
-    <columns>
-        <TableColumn text="%reservations.table.col1" fx:id="dateFromColumn"/>
-        <TableColumn text="%reservations.table.col2" fx:id="dateToColumn"/>
-        <TableColumn text="%reservations.table.col3" fx:id="roomNumberColumn"/>
-    </columns>
-</TableView>
+<fx:root type="javafx.scene.layout.AnchorPane"
+         xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         fx:controller="pl.edu.wat.controllers.ReservationsViewController">
+    <TableView AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0"
+               AnchorPane.topAnchor="0.0"
+               fx:id="reservationsTable">
+        <columns>
+            <TableColumn text="%reservations.table.col1" fx:id="dateFromColumn"/>
+            <TableColumn text="%reservations.table.col2" fx:id="dateToColumn"/>
+            <TableColumn text="%reservations.table.col3" fx:id="roomNumberColumn"/>
+        </columns>
+    </TableView>
+</fx:root>

@@ -3,8 +3,8 @@ package pl.edu.wat.controllers;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +13,6 @@ import pl.edu.wat.model.entities.Reservation;
 import pl.edu.wat.model.entities.Room;
 import pl.edu.wat.model.services.ReservationService;
 import pl.edu.wat.model.services.RoomService;
-import pl.edu.wat.view.ReservationsView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,12 +45,10 @@ public class ReservationAddController implements Initializable, ListChangeListen
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            ReservationsView reservationsView =  new ReservationsView();
-            rightPane.getChildren().add(reservationsView);
-            AnchorPane.setLeftAnchor(reservationsView, 0.0);
-            AnchorPane.setRightAnchor(reservationsView, 0.0);
-            AnchorPane.setBottomAnchor(reservationsView, 0.0);
-            AnchorPane.setTopAnchor(reservationsView, 0.0);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setRoot(rightPane);
+            loader.setResources(resources);
+            loader.load(getClass().getResource("../view/reservations_view.fxml").openStream());
         } catch (IOException e) {
             e.printStackTrace();
         }

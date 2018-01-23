@@ -33,62 +33,48 @@ public class MainController implements Initializable, EventHandler<ChangeViewEve
         FXMLLoader loader = new FXMLLoader();
         loader.setResources(resources);
         loader.setRoot(topMenu);
-        try {
-            loader.load(getClass().getResource("../view/menu_view.fxml").openStream());
-        } catch (IOException e) {
-            System.out.println("Błąd podczas ładowania widoku menu");
-            e.printStackTrace();
-        }
+        loadView(loader, "menu_view");
+
+        loader = new FXMLLoader();
+        loader.setResources(resources);
+        loader.setRoot(customView);
+        loadView(loader, "rooms_view");
 
         topMenu.addEventHandler(ChangeViewEvent.ROOMS_VIEW, this);
         topMenu.addEventHandler(ChangeViewEvent.RESERVATIONS_ADD_VIEW, this);
         topMenu.addEventHandler(ChangeViewEvent.RESERVATIONS_VIEW, this);
-
-
-        customView.getChildren().clear();
-        try {
-            customView.getChildren().add(FXMLLoader.load(getClass().getResource("../view/rooms_view.fxml"), resources));
-        } catch (IOException e) {
-            System.out.println("Błąd podczas ładowania widoku pokoi");
-            e.printStackTrace();
-        }
     }
 
     private void showView(int index) {
         FXMLLoader loader = new FXMLLoader();
         Locale locale = asr.getLanguage();
         loader.setResources(ResourceBundle.getBundle("i18n.lang", locale));
+        loader.setRoot(customView);
         customView.getChildren().clear();
         switch (index) {
             case ROOMS_VIEW:
-                try {
-                    customView.getChildren().add(loader.load(getClass().getResource("../view/rooms_view.fxml").openStream()));
-                } catch (IOException e) {
-                    System.out.println("Błąd podczas ładowania widoku pokoi");
-                    e.printStackTrace();
-                }
+                loadView(loader, "rooms_view");
                 break;
             case RESERVATIONS_VIEW:
-                try {
-                    customView.getChildren().add(loader.load(getClass().getResource("../view/reservations_view.fxml").openStream()));
-                } catch (IOException e) {
-                    System.out.println("Błąd podczas ładowania widoku rezerwacji");
-                    e.printStackTrace();
-                }
+                loadView(loader, "reservations_view");
                 break;
             case RESERVATIONS_ADD_VIEW:
-                try {
-                    customView.getChildren().add(loader.load(getClass().getResource("../view/reservation_add_view.fxml").openStream()));
-                } catch (IOException e) {
-                    System.out.println("Błąd podczas ładowania widoku dodawania rezerwacji");
-                    e.printStackTrace();
-                }
+                loadView(loader, "reservation_add_view");
                 ReservationAddController controller =  loader.getController();
                 customView.getScene().widthProperty().addListener((observable, oldValue, newValue) -> controller.updateWidth(newValue.doubleValue()));
                 customView.getScene().heightProperty().addListener((observable, oldValue, newValue) -> controller.updateHeight(newValue.doubleValue()));
                 controller.updateWidth(customView.getWidth());
                 controller.updateHeight(customView.getHeight());
                 break;
+        }
+    }
+
+    private void loadView(FXMLLoader loader, String name) {
+        try {
+            loader.load(getClass().getResource("../view/" + name + ".fxml").openStream());
+        } catch (IOException e) {
+            System.out.println("Błąd podczas ładowania widoku " + name);
+            e.printStackTrace();
         }
     }
 

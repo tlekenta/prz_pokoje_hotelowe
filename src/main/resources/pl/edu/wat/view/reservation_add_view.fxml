@@ -5,7 +5,11 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<AnchorPane fx:id="mainPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.wat.controllers.ReservationAddController">
+<fx:root type="javafx.scene.layout.AnchorPane"
+         fx:id="mainPane"
+         xmlns="http://javafx.com/javafx/8.0.121"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="pl.edu.wat.controllers.ReservationAddController">
       <AnchorPane fx:id="leftPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
           <ComboBox fx:id="roomsBox" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="25.0" onAction="#roomSelected" promptText="%reservations.add.text1"/>
           <DatePicker fx:id="dateFromPicker" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="75.0" onAction="#dateFromSelected" promptText="%reservations.add.text2"/>
@@ -13,4 +17,4 @@
           <Button AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="175.0" onAction="#save" text="%button.add"/>
       </AnchorPane>
       <AnchorPane fx:id="rightPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-</AnchorPane>
+</fx:root>
