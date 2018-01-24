@@ -53,6 +53,14 @@ public class ApplicationSettingsReader {
         settingsList.put("language", language);
     }
 
+    public String getCurrnecy(){
+        return settingsList.get("currency");
+    }
+
+    public void setCurrency(String currency){
+        settingsList.put("currency", currency);
+    }
+
     private Map loadSettings() throws ParserConfigurationException, IOException, SAXException {
         File xml = new File(PATH_TO_SETTINGS);
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
