@@ -51,9 +51,7 @@ public class ReservationsViewController implements Initializable {
         );
         priceColumn.setCellValueFactory((cellData) -> {
                 double price =
-                        cellData.getValue().getRoom().getPricePerNight()
-                                * DAYS.between(cellData.getValue().getDateFrom(), cellData.getValue().getDateTo())
-                                / CurrencyService.getCurrnecyPrice(asr.getCurrnecy());
+                        cellData.getValue().getTotalPrice();
                 DecimalFormat df = new DecimalFormat("#.##");
                 return new ReadOnlyStringWrapper(df.format(price) + " " + asr.getCurrnecy());
             }
