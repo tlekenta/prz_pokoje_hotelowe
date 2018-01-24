@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <fx:root type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
@@ -13,8 +14,16 @@
                AnchorPane.topAnchor="0.0"
                fx:id="reservationsTable">
         <columns>
-            <TableColumn text="%reservations.table.col1" fx:id="dateFromColumn"/>
-            <TableColumn text="%reservations.table.col2" fx:id="dateToColumn"/>
+            <TableColumn text="%reservations.table.col1" fx:id="dateFromColumn">
+                <cellValueFactory>
+                    <PropertyValueFactory property="dateFrom"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="%reservations.table.col2" fx:id="dateToColumn">
+                <cellValueFactory>
+                    <PropertyValueFactory property="dateTo"/>
+                </cellValueFactory>
+            </TableColumn>
             <TableColumn text="%reservations.table.col3" fx:id="roomNumberColumn"/>
             <TableColumn text="%reservations.table.col4" fx:id="priceColumn"/>
         </columns>

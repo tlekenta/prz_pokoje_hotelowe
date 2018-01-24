@@ -36,12 +36,6 @@ public class ReservationsViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        dateFromColumn.setCellValueFactory(
-                new PropertyValueFactory<>("dateFrom")
-        );
-        dateToColumn.setCellValueFactory(
-                new PropertyValueFactory<>("dateTo")
-        );
         roomNumberColumn.setCellValueFactory((cellData) ->
                 new ReadOnlyStringWrapper(cellData.getValue().getRoom().getNumber())
         );

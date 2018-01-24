@@ -24,15 +24,6 @@ public class RoomsViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        numberColumn.setCellValueFactory(
-                new PropertyValueFactory<>("number")
-        );
-        numberOfPersonsColumn.setCellValueFactory(
-                new PropertyValueFactory<>("numberOfPersons")
-        );
-        numberOfBedsColumn.setCellValueFactory(
-                new PropertyValueFactory<>("numberOfBeds")
-        );
         priceColumn.setCellValueFactory(
                 new PropertyValueFactory<>("pricePerNight")
         );

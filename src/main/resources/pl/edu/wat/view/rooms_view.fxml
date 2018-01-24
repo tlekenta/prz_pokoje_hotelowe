@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <fx:root type="javafx.scene.layout.AnchorPane"
          xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
@@ -13,9 +14,21 @@
                AnchorPane.topAnchor="0.0"
                fx:id="roomsTable">
         <columns>
-            <TableColumn text="%rooms.table.col1" fx:id="numberColumn"/>
-            <TableColumn text="%rooms.table.col2" fx:id="numberOfPersonsColumn"/>
-            <TableColumn text="%rooms.table.col3" fx:id="numberOfBedsColumn"/>
+            <TableColumn text="%rooms.table.col1" fx:id="numberColumn">
+                <cellValueFactory>
+                    <PropertyValueFactory property="number"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="%rooms.table.col2" fx:id="numberOfPersonsColumn">
+                <cellValueFactory>
+                    <PropertyValueFactory property="numberOfPersons"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn text="%rooms.table.col3" fx:id="numberOfBedsColumn">
+                <cellValueFactory>
+                    <PropertyValueFactory property="numberOfBeds"/>
+                </cellValueFactory>
+            </TableColumn>
             <TableColumn text="%rooms.table.col4" fx:id="priceColumn"/>
         </columns>
     </TableView>
