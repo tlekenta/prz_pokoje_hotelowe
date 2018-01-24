@@ -8,6 +8,7 @@ public class ChangeViewEvent extends Event{
     public static final EventType<ChangeViewEvent> ROOMS_VIEW = new EventType<>(Event.ANY, "ROOMS_VIEW");
     public static final EventType<ChangeViewEvent> RESERVATIONS_VIEW = new EventType<>(Event.ANY, "RESERVATIONS_VIEW");
     public static final EventType<ChangeViewEvent> RESERVATIONS_ADD_VIEW = new EventType<>(Event.ANY, "RESERVATIONS_ADD_VIEW");
+    public static final EventType<ChangeViewEvent> ROOM_ADD_VIEW = new EventType<>(Event.ANY, "ROOM_ADD_VIEW");
 
     public ChangeViewEvent(EventType<? extends Event> eventType) {
         super(eventType);
@@ -21,6 +22,8 @@ public class ChangeViewEvent extends Event{
                 return new ChangeViewEvent(RESERVATIONS_VIEW);
             case MainController.RESERVATIONS_ADD_VIEW:
                 return new ChangeViewEvent(RESERVATIONS_ADD_VIEW);
+            case MainController.ROOM_ADD_VIEW:
+                return new ChangeViewEvent(ROOM_ADD_VIEW);
             default:
                 return new ChangeViewEvent(ROOMS_VIEW);
         }

@@ -27,6 +27,7 @@ public class MainController implements Initializable, EventHandler<ChangeViewEve
     public static final int ROOMS_VIEW = 0;
     public static final int RESERVATIONS_VIEW = 1;
     public static final int RESERVATIONS_ADD_VIEW = 2;
+    public static final int ROOM_ADD_VIEW = 3;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,6 +44,7 @@ public class MainController implements Initializable, EventHandler<ChangeViewEve
         topMenu.addEventHandler(ChangeViewEvent.ROOMS_VIEW, this);
         topMenu.addEventHandler(ChangeViewEvent.RESERVATIONS_ADD_VIEW, this);
         topMenu.addEventHandler(ChangeViewEvent.RESERVATIONS_VIEW, this);
+        topMenu.addEventHandler(ChangeViewEvent.ROOM_ADD_VIEW, this);
     }
 
     private void showView(int index) {
@@ -60,6 +62,9 @@ public class MainController implements Initializable, EventHandler<ChangeViewEve
                 break;
             case RESERVATIONS_ADD_VIEW:
                 loadView(loader, "reservation_add_view");
+                break;
+            case ROOM_ADD_VIEW:
+                loadView(loader, "room_add_view");
                 break;
         }
     }
@@ -81,6 +86,8 @@ public class MainController implements Initializable, EventHandler<ChangeViewEve
             showView(RESERVATIONS_VIEW);
         } else if(event.getEventType().equals(ChangeViewEvent.RESERVATIONS_ADD_VIEW)) {
             showView(RESERVATIONS_ADD_VIEW);
+        } else if(event.getEventType().equals(ChangeViewEvent.ROOM_ADD_VIEW)) {
+            showView(ROOM_ADD_VIEW);
         }
     }
 }

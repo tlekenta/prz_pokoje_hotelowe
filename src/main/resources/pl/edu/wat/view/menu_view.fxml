@@ -13,6 +13,7 @@
         <MenuItem onAction="#switchView" text="%menu.view.rooms" />
         <MenuItem onAction="#switchView" text="%menu.view.reservations" />
         <MenuItem onAction="#switchView" text="%menu.view.addReservation" />
+        <MenuItem onAction="#switchView" text="%menu.view.addRoom" />
     </Menu>
     <Menu text="%menu.settings" fx:id="settingsMenu">
         <Menu mnemonicParsing="false" text="%menu.settings.theme">
