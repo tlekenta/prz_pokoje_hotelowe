@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class AlertController implements EventHandler<AlertEvent> {
     @Getter private static final AlertController instance = new AlertController();
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
-    private enum AlertType {THEME, LANG}
+    private enum AlertType {THEME, LANG, CURRENCY}
 
 
     private AlertController() {
@@ -43,6 +43,8 @@ public class AlertController implements EventHandler<AlertEvent> {
             showInformationDialog(AlertType.THEME);
         } else if(eventType.equals(AlertEvent.LANGUAGE_CHANGE)) {
             showRestartConfirmationDialog(AlertType.LANG, source.getScene().getWindow());
+        } else if(eventType.equals(AlertEvent.CURRENCY_CHANGE)) {
+            showRestartConfirmationDialog(AlertType.CURRENCY, source.getScene().getWindow());
         }
 
     }

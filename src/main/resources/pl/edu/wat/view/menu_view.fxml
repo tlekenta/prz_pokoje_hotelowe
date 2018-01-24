@@ -23,5 +23,9 @@
             <MenuItem onAction="#changeLanguage" text="Polski" />
             <MenuItem onAction="#changeLanguage" text="English" />
         </Menu>
+        <Menu mnemonicParsing="false" text="%menu.settings.curr">
+            <MenuItem onAction="#changeCurrency" text="PLN" />
+            <MenuItem onAction="#changeCurrency" text="USD" />
+        </Menu>
     </Menu>
 </fx:root>

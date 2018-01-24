@@ -39,6 +39,7 @@ public class MenuController implements Initializable {
 
         menuBar.addEventHandler(AlertEvent.LANGUAGE_CHANGE, AlertController.getInstance());
         menuBar.addEventHandler(AlertEvent.THEME_CHANGE, AlertController.getInstance());
+        menuBar.addEventHandler(AlertEvent.CURRENCY_CHANGE, AlertController.getInstance());
     }
 
     @FXML
@@ -83,5 +84,14 @@ public class MenuController implements Initializable {
         }
 
         menuBar.fireEvent(new AlertEvent(AlertEvent.LANGUAGE_CHANGE));
+    }
+
+    @FXML void changeCurrency(Event e) {
+        Object src = e.getSource();
+        MenuItem item = (MenuItem) src;
+
+        asr.setCurrency(item.getText());
+
+        menuBar.fireEvent(new AlertEvent(AlertEvent.CURRENCY_CHANGE));
     }
 }
