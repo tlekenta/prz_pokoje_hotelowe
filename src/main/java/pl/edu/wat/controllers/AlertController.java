@@ -4,9 +4,7 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuBar;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
@@ -22,7 +20,7 @@ import java.util.ResourceBundle;
 public class AlertController implements EventHandler<AlertEvent> {
     @Getter private static final AlertController instance = new AlertController();
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
-    private enum AlertType {THEME, LANG, CURRENCY}
+    private enum AlertType {THEME, LANG, CURRENCY, RES_ADD_SUCCESS}
 
 
     private AlertController() {
@@ -31,9 +29,11 @@ public class AlertController implements EventHandler<AlertEvent> {
     @Override
     public void handle(AlertEvent event) {
         Object object = event.getSource();
-        MenuBar source;
+        Control source;
         if(object instanceof MenuBar) {
             source = (MenuBar) object;
+        } else if(object instanceof Button) {
+            source = (Button) object;
         } else {
             return;
         }
@@ -45,6 +45,8 @@ public class AlertController implements EventHandler<AlertEvent> {
             showRestartConfirmationDialog(AlertType.LANG, source.getScene().getWindow());
         } else if(eventType.equals(AlertEvent.CURRENCY_CHANGE)) {
             showRestartConfirmationDialog(AlertType.CURRENCY, source.getScene().getWindow());
+        } else if(eventType.equals(AlertEvent.RESERVATION_ADD_SUCCESS)) {
+            showInformationDialog(AlertType.RES_ADD_SUCCESS);
         }
 
     }

@@ -1,14 +1,17 @@
 package pl.edu.wat.controllers;
 
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
+import pl.edu.wat.events.AlertEvent;
 import pl.edu.wat.model.entities.Reservation;
 import pl.edu.wat.model.entities.Room;
 import pl.edu.wat.model.services.ReservationService;
@@ -37,6 +40,9 @@ public class ReservationAddController implements Initializable {
 
     @FXML
     DatePicker dateToPicker;
+
+    @FXML
+    Button button;
 
     private Reservation reservation = new Reservation();
     private ReservationService reservationService = ReservationService.getInstance();
@@ -78,6 +84,8 @@ public class ReservationAddController implements Initializable {
         this.updateWidth(mainPane.getWidth());
         this.updateHeight(mainPane.getHeight());
 
+        button.addEventHandler(AlertEvent.RESERVATION_ADD_SUCCESS, AlertController.getInstance());
+
     }
 
     public void roomSelected() {
@@ -95,7 +103,8 @@ public class ReservationAddController implements Initializable {
     }
 
     public void save() {
-        reservationService.save(reservation);
+        reservationService.save(reservation)
+                .addListener((observable, oldValue, newValue) -> Platform.runLater(() -> button.fireEvent(new AlertEvent(AlertEvent.RESERVATION_ADD_SUCCESS))));
         reservation = new Reservation();
         roomsBox.setValue(null);
         dateFromPicker.setValue(null);

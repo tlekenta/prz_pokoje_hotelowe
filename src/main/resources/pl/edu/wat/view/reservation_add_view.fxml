@@ -14,7 +14,7 @@
           <ComboBox fx:id="roomsBox" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="25.0" onAction="#roomSelected" promptText="%reservations.add.text1"/>
           <DatePicker fx:id="dateFromPicker" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="75.0" onAction="#dateFromSelected" promptText="%reservations.add.text2"/>
           <DatePicker fx:id="dateToPicker" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="125.0" onAction="#dateToSelected" promptText="%reservations.add.text3"/>
-          <Button AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="175.0" onAction="#save" text="%button.add"/>
+          <Button fx:id="button" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="175.0" onAction="#save" text="%button.add"/>
       </AnchorPane>
       <AnchorPane fx:id="rightPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 </fx:root>
