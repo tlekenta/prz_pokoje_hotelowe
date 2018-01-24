@@ -1,7 +1,6 @@
-package pl.edu.wat.model.services;
+package pl.edu.wat.web;
 
 import com.google.gson.Gson;
-import pl.edu.wat.model.entities.CurrencyPrice;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +8,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.stream.Collectors;
 
-public class HTTPService {
+public class CurrencyService {
     private static final String PRICE_USD_URL = "http://api.nbp.pl/api/exchangerates/rates/A/USD?format=json";
 
     public static double getDollarPrice() throws IOException {

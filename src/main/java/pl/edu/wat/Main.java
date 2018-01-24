@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.edu.wat.model.services.HTTPService;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -36,7 +35,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
-        System.out.println(HTTPService.getDollarPrice());
         LauncherImpl.launchApplication(Main.class, InitDatabase.class, args);
     }
 }
