@@ -1,5 +1,6 @@
 package pl.edu.wat.controllers;
 
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
@@ -39,6 +40,6 @@ public class RoomsViewController implements Initializable {
         );
 
         roomService.getRoomsList()
-                .addListener((ListChangeListener<Room>) c -> roomsTable.setItems((ObservableList<Room>) c.getList()));
+                .addListener((ListChangeListener<Room>) c -> Platform.runLater(() -> roomsTable.setItems((ObservableList<Room>) c.getList())));
     }
 }

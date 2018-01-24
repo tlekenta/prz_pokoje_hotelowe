@@ -1,5 +1,6 @@
 package pl.edu.wat.controllers;
 
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
@@ -59,6 +60,6 @@ public class ReservationsViewController implements Initializable {
         );
 
         reservationService.getReservationsList()
-                .addListener((ListChangeListener<Reservation>) c -> reservationsTable.setItems((ObservableList<Reservation>) c.getList()));
+                .addListener((ListChangeListener<Reservation>) c -> Platform.runLater(() -> reservationsTable.setItems((ObservableList<Reservation>) c.getList())));
     }
 }
