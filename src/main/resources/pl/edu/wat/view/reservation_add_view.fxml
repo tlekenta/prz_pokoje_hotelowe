@@ -5,6 +5,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <fx:root type="javafx.scene.layout.AnchorPane"
          fx:id="mainPane"
          xmlns="http://javafx.com/javafx/8.0.121"
@@ -15,6 +16,10 @@
           <DatePicker fx:id="dateFromPicker" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="75.0" onAction="#dateFromSelected" promptText="%reservations.add.text2"/>
           <DatePicker fx:id="dateToPicker" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="125.0" onAction="#dateToSelected" promptText="%reservations.add.text3"/>
           <Button fx:id="button" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="175.0" onAction="#save" text="%button.add"/>
+          <Label text="%reservations.add.text4" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="225.0"/>
+          <Label fx:id="labelNights" text="0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="225.0"/>
+          <Label text="%reservations.add.text5" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="250.0"/>
+          <Label fx:id="labelPrice" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="250.0"/>
       </AnchorPane>
       <AnchorPane fx:id="rightPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 </fx:root>

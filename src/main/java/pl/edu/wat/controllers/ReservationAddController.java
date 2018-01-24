@@ -9,16 +9,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
+import pl.edu.wat.ApplicationSettingsReader;
 import pl.edu.wat.events.AlertEvent;
+import pl.edu.wat.exceptions.IncorrectReservationDatesException;
 import pl.edu.wat.model.entities.Reservation;
 import pl.edu.wat.model.entities.Room;
 import pl.edu.wat.model.services.ReservationService;
 import pl.edu.wat.model.services.RoomService;
+import pl.edu.wat.web.CurrencyService;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class ReservationAddController implements Initializable {
@@ -44,9 +49,16 @@ public class ReservationAddController implements Initializable {
     @FXML
     Button button;
 
+    @FXML
+    Label labelNights;
+
+    @FXML
+    Label labelPrice;
+
     private Reservation reservation = new Reservation();
     private ReservationService reservationService = ReservationService.getInstance();
     private RoomService roomService = RoomService.getInstance();
+    private ApplicationSettingsReader asr = new ApplicationSettingsReader();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -85,30 +97,57 @@ public class ReservationAddController implements Initializable {
         this.updateHeight(mainPane.getHeight());
 
         button.addEventHandler(AlertEvent.RESERVATION_ADD_SUCCESS, AlertController.getInstance());
+        button.setDisable(true);
+
+        labelPrice.setText("0 " + asr.getCurrnecy());
 
     }
 
     public void roomSelected() {
         reservation.setRoom(roomsBox.getValue());
+        if(dateToPicker.getValue() != null && dateFromPicker.getValue() != null) {
+            updateLabels();
+        }
+        isValid();
     }
 
     public void dateFromSelected() {
-        if(dateFromPicker.getValue() != null)
-            reservation.setDateFrom(dateFromPicker.getValue().plusDays(1));
+        if(dateFromPicker.getValue() == null)
+            return;
+
+        reservation.setDateFrom(dateFromPicker.getValue().plusDays(1));
+
+        if(dateToPicker.getValue() != null) {
+            updateLabels();
+        }
+        isValid();
     }
 
     public void dateToSelected() {
-        if(dateToPicker.getValue() != null)
-            reservation.setDateTo(dateToPicker.getValue().plusDays(1));
+        if(dateToPicker.getValue() == null)
+            return;
+
+        reservation.setDateTo(dateToPicker.getValue().plusDays(1));
+
+        if(dateFromPicker.getValue() != null) {
+            updateLabels();
+        }
+        isValid();
     }
 
     public void save() {
+        if(!isValid())
+            return;
+        int daysBetween = dateToPicker.getValue().compareTo(dateFromPicker.getValue());
+        reservation.setTotalPrice(daysBetween * reservation.getRoom().getPricePerNight());
         reservationService.save(reservation)
                 .addListener((observable, oldValue, newValue) -> Platform.runLater(() -> button.fireEvent(new AlertEvent(AlertEvent.RESERVATION_ADD_SUCCESS))));
         reservation = new Reservation();
         roomsBox.setValue(null);
         dateFromPicker.setValue(null);
         dateToPicker.setValue(null);
+        labelPrice.setText("0 " + asr.getCurrnecy());
+        labelNights.setText("0");
     }
 
     void updateWidth(double newWidth) {
@@ -118,5 +157,39 @@ public class ReservationAddController implements Initializable {
 
     void updateHeight(double height) {
 
+    }
+
+    private void updateLabels() {
+        int daysBetween = dateToPicker.getValue().compareTo(dateFromPicker.getValue());
+        if(daysBetween <= 0) {
+            try {
+                throw new IncorrectReservationDatesException();
+            } catch (IncorrectReservationDatesException e) {
+                e.printStackTrace();
+                System.out.println("Data końca rezerwacji jest wcześniejsza lub równa dacie początku rezerwacji");
+                labelNights.setText("0");
+                labelPrice.setText("0 " + asr.getCurrnecy());
+            }
+        } else {
+            labelNights.setText(String.valueOf(daysBetween));
+            if(roomsBox.getValue() != null) {
+                double price = daysBetween * roomsBox.getValue().getPricePerNight() / CurrencyService.getCurrnecyPrice(asr.getCurrnecy());
+                DecimalFormat df = new DecimalFormat("#.## ");
+                labelPrice.setText(df.format(price) + asr.getCurrnecy());
+            }
+        }
+    }
+
+    private boolean isValid() {
+        boolean isValid = false;
+
+        if(roomsBox.getValue() == null) {
+            isValid = false;
+        } else if(dateFromPicker.getValue() != null && dateToPicker.getValue() != null) {
+            isValid = dateToPicker.getValue().compareTo(dateFromPicker.getValue()) > 0;
+        }
+
+        button.setDisable(!isValid);
+        return isValid;
     }
 }
