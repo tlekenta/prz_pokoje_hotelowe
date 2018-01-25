@@ -6,10 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
 import pl.edu.wat.ApplicationSettingsReader;
@@ -17,6 +14,7 @@ import pl.edu.wat.events.AlertEvent;
 import pl.edu.wat.exceptions.IncorrectReservationDatesException;
 import pl.edu.wat.model.entities.Reservation;
 import pl.edu.wat.model.entities.Room;
+import pl.edu.wat.model.services.FormValidationService;
 import pl.edu.wat.model.services.ReservationService;
 import pl.edu.wat.model.services.RoomService;
 import pl.edu.wat.web.CurrencyService;
@@ -24,6 +22,7 @@ import pl.edu.wat.web.CurrencyService;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ReservationAddController implements Initializable {
@@ -55,10 +54,14 @@ public class ReservationAddController implements Initializable {
     @FXML
     Label labelPrice;
 
+    @FXML
+    Label errorsLabel;
+
     private Reservation reservation = new Reservation();
     private ReservationService reservationService = ReservationService.getInstance();
     private RoomService roomService = RoomService.getInstance();
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
+    private FormValidationService validationService = new FormValidationService();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -97,18 +100,17 @@ public class ReservationAddController implements Initializable {
         this.updateHeight(mainPane.getHeight());
 
         button.addEventHandler(AlertEvent.RESERVATION_ADD_SUCCESS, AlertController.getInstance());
-        button.setDisable(true);
 
         labelPrice.setText("0 " + asr.getCurrnecy());
+
+        errorsLabel.setWrapText(true);
+        errorsLabel.setVisible(false);
 
     }
 
     public void roomSelected() {
         reservation.setRoom(roomsBox.getValue());
-        if(dateToPicker.getValue() != null && dateFromPicker.getValue() != null) {
-            updateLabels();
-        }
-        isValid();
+        updateLabels();
     }
 
     public void dateFromSelected() {
@@ -116,11 +118,7 @@ public class ReservationAddController implements Initializable {
             return;
 
         reservation.setDateFrom(dateFromPicker.getValue().plusDays(1));
-
-        if(dateToPicker.getValue() != null) {
-            updateLabels();
-        }
-        isValid();
+        updateLabels();
     }
 
     public void dateToSelected() {
@@ -128,15 +126,11 @@ public class ReservationAddController implements Initializable {
             return;
 
         reservation.setDateTo(dateToPicker.getValue().plusDays(1));
-
-        if(dateFromPicker.getValue() != null) {
-            updateLabels();
-        }
-        isValid();
+        updateLabels();
     }
 
     public void save() {
-        if(!isValid())
+        if(!validate())
             return;
         int daysBetween = dateToPicker.getValue().compareTo(dateFromPicker.getValue());
         reservation.setTotalPrice(daysBetween * reservation.getRoom().getPricePerNight());
@@ -160,8 +154,8 @@ public class ReservationAddController implements Initializable {
     }
 
     private void updateLabels() {
-        int daysBetween = dateToPicker.getValue().compareTo(dateFromPicker.getValue());
-        if(daysBetween <= 0) {
+        List<FormValidationService.ReservationError> errorList = validationService.validReservationForm(reservation);
+        if(errorList.contains(FormValidationService.ReservationError.INCORRECT_DATES)) {
             try {
                 throw new IncorrectReservationDatesException();
             } catch (IncorrectReservationDatesException e) {
@@ -170,7 +164,9 @@ public class ReservationAddController implements Initializable {
                 labelNights.setText("0");
                 labelPrice.setText("0 " + asr.getCurrnecy());
             }
-        } else {
+        } else if(!errorList.contains(FormValidationService.ReservationError.DATE_FROM_IS_EMPTY)
+                && !errorList.contains(FormValidationService.ReservationError.DATE_TO_IS_EMPTY)) {
+            int daysBetween = dateToPicker.getValue().compareTo(dateFromPicker.getValue());
             labelNights.setText(String.valueOf(daysBetween));
             if(roomsBox.getValue() != null) {
                 double price = daysBetween * roomsBox.getValue().getPricePerNight() / CurrencyService.getCurrnecyPrice(asr.getCurrnecy());
@@ -180,16 +176,34 @@ public class ReservationAddController implements Initializable {
         }
     }
 
-    private boolean isValid() {
-        boolean isValid = false;
+    private boolean validate() {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n.lang", asr.getLanguage());
+        errorsLabel.setText("");
+        StringBuilder sb = new StringBuilder("");
+        List<FormValidationService.ReservationError> errorList = validationService.validReservationForm(reservation);
 
-        if(roomsBox.getValue() == null) {
-            isValid = false;
-        } else if(dateFromPicker.getValue() != null && dateToPicker.getValue() != null) {
-            isValid = dateToPicker.getValue().compareTo(dateFromPicker.getValue()) > 0;
+        if(errorList.contains(FormValidationService.ReservationError.ROOM_IS_EMPTY)) {
+            sb.append(resourceBundle.getString("reservations.add.error1")).append("\n");
         }
 
-        button.setDisable(!isValid);
-        return isValid;
+        if(errorList.contains(FormValidationService.ReservationError.DATE_TO_IS_EMPTY)) {
+            sb.append(resourceBundle.getString("reservations.add.error2")).append("\n");
+        }
+
+        if(errorList.contains(FormValidationService.ReservationError.DATE_FROM_IS_EMPTY)) {
+            sb.append(resourceBundle.getString("reservations.add.error3")).append("\n");
+        }
+
+        if(errorList.contains(FormValidationService.ReservationError.INCORRECT_DATES)) {
+            sb.append(resourceBundle.getString("reservations.add.error4")).append("\n");
+        }
+
+        if(errorList.contains(FormValidationService.ReservationError.ROOM_IS_NOT_AVAILABLE)) {
+            sb.append(resourceBundle.getString("reservations.add.error5")).append("\n");
+        }
+
+        errorsLabel.setText(sb.toString());
+        errorsLabel.setVisible(!errorList.isEmpty());
+        return errorList.isEmpty();
     }
 }
