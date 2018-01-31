@@ -11,7 +11,7 @@ public class FormValidationService {
     public List<ReservationError> validReservationForm(Reservation reservation) {
         List<ReservationError> errors = new ArrayList<>();
 
-        if(reservation.getRoom().getNumber() == null)
+        if(reservation.getRoom() == null || reservation.getRoom().getNumber() == null)
             errors.add(ReservationError.ROOM_IS_EMPTY);
 
         if(reservation.getDateFrom() == null)
