@@ -1,52 +1,71 @@
 package pl.edu.wat.model.services;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import pl.edu.wat.model.entities.Reservation;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class FormValidationService {
     public enum ReservationError {ROOM_IS_EMPTY, DATE_TO_IS_EMPTY, DATE_FROM_IS_EMPTY, ROOM_IS_NOT_AVAILABLE, INCORRECT_DATES}
 
     private RoomService roomService = RoomService.getInstance();
 
-    public List<ReservationError> validReservationForm(Reservation reservation) {
-        List<ReservationError> errors = new ArrayList<>();
+    private ExecutorService executorService;
 
-        if(reservation.getRoom() == null || reservation.getRoom().getNumber() == null)
-            errors.add(ReservationError.ROOM_IS_EMPTY);
+    public FormValidationService() {
+        executorService = Executors.newSingleThreadExecutor(runnable -> {
+            Thread t = new Thread(runnable);
+            t.setDaemon(true);
+            return t;
+        });
+    }
 
-        if(reservation.getDateFrom() == null)
-            errors.add(ReservationError.DATE_FROM_IS_EMPTY);
+    public ObservableList<ReservationError> validReservationForm(Reservation reservation) {
+        ObservableList<ReservationError> observableList = FXCollections.observableList(new LinkedList<>());
 
-        if(reservation.getDateTo() == null)
-            errors.add(ReservationError.DATE_TO_IS_EMPTY);
+        executorService.execute(() -> {
+            List<ReservationError> errors = new ArrayList<>();
+            if (reservation.getRoom() == null || reservation.getRoom().getNumber() == null)
+                errors.add(ReservationError.ROOM_IS_EMPTY);
 
-        if(errors.isEmpty()){
-            try {
-                List<Reservation> reservations = roomService
-                        .getById(reservation.getRoom().getId())
-                        .get()
-                        .getReservations();
-                for(Reservation res: reservations) {
-                    if(reservation.getDateFrom().isBefore(res.getDateTo()) && reservation.getDateTo().isAfter(res.getDateFrom())) {
-                        errors.add(ReservationError.ROOM_IS_NOT_AVAILABLE);
-                        break;
+            if (reservation.getDateFrom() == null)
+                errors.add(ReservationError.DATE_FROM_IS_EMPTY);
+
+            if (reservation.getDateTo() == null)
+                errors.add(ReservationError.DATE_TO_IS_EMPTY);
+
+            if (errors.isEmpty()) {
+                try {
+                    List<Reservation> reservations = roomService
+                            .getById(reservation.getRoom().getId()).get()
+                            .getReservations();
+                    for (Reservation res : reservations) {
+                        if (reservation.getDateFrom().isBefore(res.getDateTo()) && reservation.getDateTo().isAfter(res.getDateFrom())) {
+                            errors.add(ReservationError.ROOM_IS_NOT_AVAILABLE);
+                            break;
+                        }
                     }
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
                 }
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-
-        if(reservation.getDateTo() != null & reservation.getDateFrom() != null) {
-            if(reservation.getDateTo().compareTo(reservation.getDateFrom()) <= 0) {
-                errors.add(ReservationError.INCORRECT_DATES);
             }
 
-        }
+            if (reservation.getDateTo() != null & reservation.getDateFrom() != null) {
+                if (reservation.getDateTo().compareTo(reservation.getDateFrom()) <= 0) {
+                    errors.add(ReservationError.INCORRECT_DATES);
+                }
 
-        return new ArrayList<>(errors);
+            }
+
+            observableList.addAll(errors);
+        });
+
+        return observableList;
     }
 }
