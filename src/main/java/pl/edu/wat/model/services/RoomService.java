@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class RoomService {
     private static RoomService instance = new RoomService();
@@ -40,9 +41,7 @@ public class RoomService {
         return observableList;
     }
 
-    public ObservableValue<Room> getById(Long number) {
-        SimpleObjectProperty<Room> room = new SimpleObjectProperty<>();
-        executorService.execute(() -> room.set(roomDAO.getById(number)));
-        return room;
+    public Future<Room> getById(Long number) {
+        return executorService.submit(() -> roomDAO.getById(number));
     }
 }

@@ -24,6 +24,7 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 
 public class ReservationAddController implements Initializable {
 
@@ -74,7 +75,6 @@ public class ReservationAddController implements Initializable {
             e.printStackTrace();
         }
 
-        //tymczasowe roaziwązanie, trzeba to ładniej zrobić
         roomsBox.setConverter(new StringConverter<Room>() {
             @Override
             public String toString(Room object) {
@@ -88,7 +88,12 @@ public class ReservationAddController implements Initializable {
             @Override
             public Room fromString(String string) {
                 String id = string.split("\\.")[0];
-                return roomService.getById(Long.valueOf(id)).getValue();
+                try {
+                    return roomService.getById(Long.valueOf(id)).get();
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
         });
 
