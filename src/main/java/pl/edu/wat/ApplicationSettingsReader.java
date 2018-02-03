@@ -24,7 +24,6 @@ import java.util.*;
 public class ApplicationSettingsReader {
     private static Map<String, String> settingsList;
     private static final String PATH_TO_SETTINGS = "src/main/resources/pl/edu/wat/settings/application_settings.xml";
-    private static final String PROD_PATH_TO_SETTINGS = "classes/pl/edu/wat/settings/application_settings.xml";
 
     public ApplicationSettingsReader(){
         try {

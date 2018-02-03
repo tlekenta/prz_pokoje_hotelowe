@@ -35,6 +35,11 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws IOException {
+        if(args.length == 1) {
+            if("dev".equals(args[0])) {
+                EntityManagerFactory.enableDevmode();
+            }
+        }
         LauncherImpl.launchApplication(Main.class, InitDatabase.class, args);
     }
 }
