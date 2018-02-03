@@ -64,6 +64,13 @@ public class RoomAddController implements Initializable {
         }
         if(!isFormValid)
             return;
+
+        Room room = new Room();
+        room.setNumber(roomNumberField.getText());
+        room.setNumberOfPersons(Integer.valueOf(numberOfPersonsField.getText()));
+        room.setNumberOfBeds(Integer.valueOf(numberOfBedsField.getText()));
+        room.setPricePerNight(Double.valueOf(pricePerNightField.getText()));
+        roomService.save(room);
     }
 
     @FXML

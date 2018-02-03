@@ -44,4 +44,8 @@ public class RoomService {
     public Future<Room> getById(Long number) {
         return executorService.submit(() -> roomDAO.getById(number));
     }
+
+    public Room save(Room room) {
+        return roomDAO.save(room);
+    }
 }

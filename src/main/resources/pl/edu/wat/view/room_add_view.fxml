@@ -17,5 +17,5 @@
     <TextField fx:id="numberOfBedsField" onKeyPressed="#isValid" AnchorPane.topAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.leftAnchor="150.0"/>
     <Label text="%room.add.text1" AnchorPane.topAnchor="180.0" AnchorPane.leftAnchor="150.0"/>
     <TextField fx:id="pricePerNightField" onKeyPressed="#isValid" AnchorPane.topAnchor="200.0" AnchorPane.rightAnchor="150.0" AnchorPane.leftAnchor="150.0"/>
-    <Button fx:id="button" text="%button.add" onAction="#save"/>
+    <Button fx:id="button" text="%button.add" onAction="#save" AnchorPane.topAnchor="250" AnchorPane.leftAnchor="150"/>
 </fx:root>
