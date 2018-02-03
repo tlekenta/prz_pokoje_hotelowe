@@ -45,7 +45,11 @@ public class RoomService {
         return executorService.submit(() -> roomDAO.getById(number));
     }
 
-    public Room save(Room room) {
-        return roomDAO.save(room);
+    public ObservableValue<Room> save(Room room) {
+        final SimpleObjectProperty<Room> roomSimpleObjectProperty = new SimpleObjectProperty<>();
+        executorService.execute(() -> {
+            roomSimpleObjectProperty.set(roomDAO.save(room));
+        });
+        return roomSimpleObjectProperty;
     }
 }

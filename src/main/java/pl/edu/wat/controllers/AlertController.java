@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class AlertController implements EventHandler<AlertEvent> {
     @Getter private static final AlertController instance = new AlertController();
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
-    private enum AlertType {THEME, LANG, CURRENCY, RES_ADD_SUCCESS}
+    private enum AlertType {THEME, LANG, CURRENCY, RES_ADD_SUCCESS, ROOM_ADD_SUCCESS}
 
 
     private AlertController() {
@@ -47,6 +47,8 @@ public class AlertController implements EventHandler<AlertEvent> {
             showRestartConfirmationDialog(AlertType.CURRENCY, source.getScene().getWindow());
         } else if(eventType.equals(AlertEvent.RESERVATION_ADD_SUCCESS)) {
             showInformationDialog(AlertType.RES_ADD_SUCCESS);
+        } else if(eventType.equals(AlertEvent.ROOM_ADD_SUCCESS)) {
+            showInformationDialog(AlertType.ROOM_ADD_SUCCESS);
         }
 
     }

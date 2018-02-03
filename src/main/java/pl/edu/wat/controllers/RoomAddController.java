@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import pl.edu.wat.events.AlertEvent;
 import pl.edu.wat.model.entities.Room;
 import pl.edu.wat.model.services.RoomService;
 
@@ -54,6 +55,8 @@ public class RoomAddController implements Initializable {
 
         roomService.getRoomsList()
                 .addListener((ListChangeListener<? super Room>) c -> existingRooms = new ArrayList<>(c.getList()));
+
+        button.addEventHandler(AlertEvent.ROOM_ADD_SUCCESS, AlertController.getInstance());
     }
 
     @FXML
@@ -70,7 +73,8 @@ public class RoomAddController implements Initializable {
         room.setNumberOfPersons(Integer.valueOf(numberOfPersonsField.getText()));
         room.setNumberOfBeds(Integer.valueOf(numberOfBedsField.getText()));
         room.setPricePerNight(Double.valueOf(pricePerNightField.getText()));
-        roomService.save(room);
+        roomService.save(room)
+                .addListener((observable, oldValue, newValue) -> Platform.runLater(() -> button.fireEvent(new AlertEvent(AlertEvent.ROOM_ADD_SUCCESS))));
     }
 
     @FXML
