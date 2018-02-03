@@ -1,5 +1,6 @@
 package pl.edu.wat;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class ApplicationSettingsReader {
+    private static Logger logger = Logger.getLogger(ApplicationSettingsReader.class);
     private static Map<String, String> settingsList;
     private static final String PATH_TO_SETTINGS = "src/main/resources/pl/edu/wat/settings/application_settings.xml";
 
@@ -30,7 +32,7 @@ public class ApplicationSettingsReader {
             if(settingsList == null)
                 settingsList = loadSettings();
         } catch (ParserConfigurationException | IOException | SAXException e) {
-            e.printStackTrace();
+            logger.error("Błąd podczas wczytywania ustawień aplikacji", e);
         }
     }
 
@@ -79,7 +81,7 @@ public class ApplicationSettingsReader {
             tr.transform(new DOMSource(document),
                     new StreamResult(new FileOutputStream(PATH_TO_SETTINGS)));
         } catch (FileNotFoundException | TransformerException | ParserConfigurationException e){
-            e.printStackTrace();
+            logger.error("Błąd podczas zapisywanmia ustawień aplikacji", e);
         }
     }
 

@@ -1,6 +1,7 @@
 package pl.edu.wat.web;
 
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 import pl.edu.wat.exceptions.NoSuchCurrencyException;
 
 import java.io.BufferedReader;
@@ -11,6 +12,7 @@ import java.net.URL;
 import java.util.stream.Collectors;
 
 public class CurrencyService {
+    private static Logger logger = Logger.getLogger(CurrencyService.class);
     private static final String PRICE_USD_URL = "http://api.nbp.pl/api/exchangerates/rates/A/USD?format=json";
     private static double dollarPrice = 0.0;
 
@@ -24,8 +26,7 @@ public class CurrencyService {
                 try {
                     throw new NoSuchCurrencyException(currnecy);
                 } catch (NoSuchCurrencyException e) {
-                    e.printStackTrace();
-                    System.out.println("Podano niepoprawną nazwę waluty");
+                    logger.error("Podano niepoprawną nazwę waluty", e);
                 }
                 return 1.0;
         }
@@ -44,11 +45,9 @@ public class CurrencyService {
             reader = new InputStreamReader(url.openStream());
 
         } catch (MalformedURLException e) {
-            e.printStackTrace();
-            System.out.println("Zły format URL");
+            logger.error("Zły format URL", e);
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Błąd podczas pobierania danych o walucie");
+            logger.error("Błąd podczas pobierania danych o walucie", e);
         }
 
         BufferedReader bufferedReader = new BufferedReader(reader);

@@ -2,6 +2,7 @@ package pl.edu.wat.model.services;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.apache.log4j.Logger;
 import pl.edu.wat.model.entities.Reservation;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FormValidationService {
+    private static Logger logger = Logger.getLogger(FormValidationService.class);
+
     public enum ReservationError {ROOM_IS_EMPTY, DATE_TO_IS_EMPTY, DATE_FROM_IS_EMPTY, ROOM_IS_NOT_AVAILABLE, INCORRECT_DATES}
 
     private RoomService roomService = RoomService.getInstance();
@@ -52,7 +55,7 @@ public class FormValidationService {
                         }
                     }
                 } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
+                    logger.error("Błąd podczas walidacji formularza", e);
                 }
             }
 

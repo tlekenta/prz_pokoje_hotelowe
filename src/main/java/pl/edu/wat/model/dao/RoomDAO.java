@@ -1,5 +1,6 @@
 package pl.edu.wat.model.dao;
 
+import org.apache.log4j.Logger;
 import pl.edu.wat.exceptions.EmptyDatabaseTableException;
 import pl.edu.wat.model.entities.Room;
 
@@ -8,6 +9,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class RoomDAO implements IGenericDAO<Room> {
+    private static Logger logger = Logger.getLogger(RoomDAO.class);
 
     @Override
     public List<Room> getList() {
@@ -20,7 +22,7 @@ public class RoomDAO implements IGenericDAO<Room> {
         try {
             if(list.size() == 0) throw new EmptyDatabaseTableException("Rooms");
         } catch (EmptyDatabaseTableException e) {
-            e.printStackTrace();
+            logger.warn(e);
         }
         return list;
     }

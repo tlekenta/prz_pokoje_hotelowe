@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.StringConverter;
+import org.apache.log4j.Logger;
 import pl.edu.wat.ApplicationSettingsReader;
 import pl.edu.wat.events.AlertEvent;
 import pl.edu.wat.exceptions.IncorrectReservationDatesException;
@@ -33,6 +34,7 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 
 public class ReservationAddController implements Initializable {
+    private static Logger logger = Logger.getLogger(ReservationAddController.class);
 
     @FXML
     AnchorPane mainPane;
@@ -78,7 +80,7 @@ public class ReservationAddController implements Initializable {
             loader.setResources(resources);
             loader.load(getClass().getResource("../view/reservations_view.fxml").openStream());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Błąd podczas ładowania widoku dodawania rezerwacji", e);
         }
 
         roomsBox.setConverter(new StringConverter<Room>() {
@@ -97,7 +99,7 @@ public class ReservationAddController implements Initializable {
                 try {
                     return roomService.getById(Long.valueOf(id)).get();
                 } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
+                    logger.error("Błąd podczas pobierania informacji o pokoju", e);
                 }
                 return null;
             }
@@ -173,8 +175,7 @@ public class ReservationAddController implements Initializable {
                 try {
                     throw new IncorrectReservationDatesException();
                 } catch (IncorrectReservationDatesException e) {
-                    e.printStackTrace();
-                    System.out.println("Data końca rezerwacji jest wcześniejsza lub równa dacie początku rezerwacji");
+                    logger.warn("Data końca rezerwacji jest wcześniejsza lub równa dacie początku rezerwacji", e);
                     labelNights.setText("0");
                     labelPrice.setText("0 " + asr.getCurrnecy());
                 }

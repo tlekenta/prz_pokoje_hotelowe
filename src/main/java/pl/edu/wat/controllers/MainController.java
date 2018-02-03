@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import org.apache.log4j.Logger;
 import pl.edu.wat.ApplicationSettingsReader;
 import pl.edu.wat.events.ChangeViewEvent;
 
@@ -15,6 +16,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable, EventHandler<ChangeViewEvent> {
+    private static Logger logger = Logger.getLogger(MainController.class);
 
     @FXML
     MenuBar topMenu;
@@ -73,8 +75,7 @@ public class MainController implements Initializable, EventHandler<ChangeViewEve
         try {
             loader.load(getClass().getResource("../view/" + name + ".fxml").openStream());
         } catch (IOException e) {
-            System.out.println("Błąd podczas ładowania widoku " + name);
-            e.printStackTrace();
+            logger.error("Błąd podczas ładowania widoku " + name, e);
         }
     }
 

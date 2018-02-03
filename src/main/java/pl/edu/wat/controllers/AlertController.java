@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import lombok.Getter;
+import org.apache.log4j.Logger;
 import pl.edu.wat.ApplicationSettingsReader;
 import pl.edu.wat.InitDatabase;
 import pl.edu.wat.Main;
@@ -21,6 +22,7 @@ public class AlertController implements EventHandler<AlertEvent> {
     @Getter private static final AlertController instance = new AlertController();
     private ApplicationSettingsReader asr = new ApplicationSettingsReader();
     private enum AlertType {THEME, LANG, CURRENCY, RES_ADD_SUCCESS, ROOM_ADD_SUCCESS}
+    private static Logger logger = Logger.getLogger(AlertController.class);
 
 
     private AlertController() {
@@ -88,7 +90,7 @@ public class AlertController implements EventHandler<AlertEvent> {
                     new InitDatabase().initDatabase();
                     new Main().start(new Stage());
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    logger.error("Błąd podczas restartu aplikacji", e);
                 }
             });
         }
