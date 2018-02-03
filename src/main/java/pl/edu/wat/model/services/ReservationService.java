@@ -50,4 +50,10 @@ public class ReservationService {
         return reservationObservableValue;
     }
 
+    public void delete(Reservation toRemove) {
+        executorService.execute(() -> {
+            reservationsDAO.delete(toRemove);
+        });
+    }
+
 }

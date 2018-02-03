@@ -12,7 +12,8 @@
                AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0"
                AnchorPane.topAnchor="0.0"
-               fx:id="reservationsTable">
+               fx:id="reservationsTable"
+               onMouseClicked="#deleteReservation">
         <columns>
             <TableColumn text="%reservations.table.col1" fx:id="dateFromColumn">
                 <cellValueFactory>

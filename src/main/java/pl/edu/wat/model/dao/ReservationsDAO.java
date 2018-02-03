@@ -31,7 +31,7 @@ public class ReservationsDAO implements IGenericDAO<Reservation> {
     public Reservation getById(Long id) {
         EntityManager em = emf.getEntityManager();
 
-        TypedQuery<Reservation> query = em.createQuery("SELECT r FROM Room r WHERE r.id = :arg1", Reservation.class);
+        TypedQuery<Reservation> query = em.createQuery("SELECT r FROM Reservation r WHERE r.id = :arg1", Reservation.class);
         query.setParameter("arg1", id);
 
         Reservation reservation = query.getSingleResult();

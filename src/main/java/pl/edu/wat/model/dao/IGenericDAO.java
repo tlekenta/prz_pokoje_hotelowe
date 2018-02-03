@@ -19,6 +19,16 @@ public interface IGenericDAO<T> {
         return toPersist;
     }
 
+    default void delete(T toRemove) {
+        EntityManager em = emf.getEntityManager();
+        em.getTransaction().begin();
+
+        em.remove(em.contains(toRemove) ? toRemove : em.merge(toRemove));
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
     T getById(Long id);
 
     List<T> getList();
