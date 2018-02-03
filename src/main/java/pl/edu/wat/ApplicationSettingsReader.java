@@ -6,6 +6,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import pl.edu.wat.exceptions.LanguageNotSupportedException;
+import pl.edu.wat.exceptions.NoSuchCurrencyException;
+import pl.edu.wat.exceptions.ThemeNotSupportedException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,10 +32,34 @@ public class ApplicationSettingsReader {
 
     public ApplicationSettingsReader(){
         try {
-            if(settingsList == null)
+            if(settingsList == null) {
                 settingsList = loadSettings();
+                validateSettings(settingsList);
+            }
         } catch (ParserConfigurationException | IOException | SAXException e) {
             logger.error("Błąd podczas wczytywania ustawień aplikacji", e);
+        }
+    }
+
+    private void validateSettings(Map<String, String> settingsList) {
+        String value = "";
+
+        value = settingsList.get("language");
+        if(!("pl".equals(value) || "en".equals(value))) {
+            logger.warn("Język: " + value + " nie jest wspierany");
+            throw new LanguageNotSupportedException(value);
+        }
+
+        value = settingsList.get("theme");
+        if(!("MODENA".equals(value) || "CASPIAN".equals(value))) {
+            logger.warn("Motyw: " + value + " nie jest wspierany");
+            throw new ThemeNotSupportedException(value);
+        }
+
+        value = settingsList.get("currency");
+        if(!("PLN".equals(value) || "USD".equals(value))) {
+            logger.warn("Waluta: " + value + " nie jest wspierana");
+            throw new NoSuchCurrencyException(value);
         }
     }
 
